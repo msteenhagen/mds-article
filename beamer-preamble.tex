@@ -1,0 +1,61 @@
+\usepackage{bbding}
+\usepackage{pifont}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage[UKenglish]{babel} \selectlanguage{UKenglish}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{microtype}
+
+% Select beamer theme
+\usetheme{Malmoe}
+\useoutertheme{infolines}
+
+% Define color names
+\definecolor{itemizeblue}{RGB}{51, 51, 179}
+
+% A block enviroment that stretches horizontally to fit its contents
+\newenvironment<>{varblock}[2][.9\textwidth]{%
+\begin{center}
+  \setlength{\textwidth}{#1}
+  \begin{minipage}{#1}
+  \begin{actionenv}#3%
+    \def\insertblocktitle{#2}%
+    \par%
+    \usebeamertemplate{block begin} \vspace{0.5em}}
+  {\par%
+    \usebeamertemplate{block end}%
+  \end{actionenv}
+  \end{minipage}
+\end{center}
+\vspace{1em}}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+
+% Symbol definitions
+\newcommand{\tickYes}{\checkmark}
+\newcommand{\tickNo}{\hspace{1pt}\ding{55}}
+\newcommand{\blueTickYes}{\textcolor{itemizeblue}{\tickYes}}
+\newcommand{\blueTickNo}{\textcolor{itemizeblue}{\tickNo}}
+\newcommand{\highlight}[1]{\colorbox{yellow}{#1}}
+\newcommand{\bulletPoint}{{\scriptsize\raisebox{1.25pt}{\donotcoloroutermaths\textcolor{itemizeblue}{$\blacktriangleright$}}} } 
+\newcommand{\centerbullet}[1]{\centerline{\large \bulletPoint {#1}}}
+
+% Hyperref
+\usepackage{hyperref} 
+
+\makeatletter
+\AtBeginDocument{
+  \hypersetup{
+    pdftitle = {\@title},
+    pdfauthor = {\@author}
+  }
+}
+\makeatother
+
+% increase spacing in list environments
+\let\olditem\item
+\renewcommand{\item}{\setlength{\parskip}{1ex}\olditem}

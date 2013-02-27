@@ -1,0 +1,182 @@
+% TODO Reparse gitinfo dates into form 1st Februart 2012
+% TODO Check for git info before printing it at the end
+% TODO Run trials for different bottom margins
+% TODO Add publication info
+% TODO Add email address
+\documentclass[oneside,12pt]{article}
+\usepackage{fixltx2e}
+\usepackage[a4paper]{geometry}
+\geometry{
+  top=2.5cm,            % <-- you want to adjust this
+  bottom=3.5cm,
+  headheight=3ex,       %% <-- and this
+  headsep=2ex,          % <-- and this
+}
+% \usepackage{layout}
+% \usepackage[a4paper,bottom=2.5cm,top=3cm]{geometry} 
+\usepackage[T1]{fontenc}
+\usepackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}
+\usepackage{graphicx}
+\usepackage{setspace} 				% Doublespacing, etc.
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{gitinfo}
+\usepackage{xcolor}
+% \usepackage[parfill]{parskip}
+\usepackage{enumitem}
+\usepackage[british]{babel}
+\usepackage[autostyle]{csquotes}
+\usepackage[babel]{microtype}
+
+%% Force footnotes to stay on the same page
+\interfootnotelinepenalty=10000 	
+
+%% Bibliography - natbib 
+% \usepackage[round,longnamesfirst,sort]{natbib}
+% \setlength{\bibsep}{6pt}
+
+%% Bibliography - biblatex 
+\usepackage[useprefix,authordate,natbib,backend=biber]{biblatex-chicago}
+\setlength\bibitemsep{6pt}	
+\addbibresource{refs.bib}
+% \usepackage[natbib=true,backend=biber,style=apa]{biblatex}
+% \DeclareLanguageMapping{british}{british-apa}
+
+\definecolor{mds_linkcolor}{RGB}{76, 64, 133}
+	
+% Useful symbols
+% \usepackage{xspace}
+% \newcommand{\cornerquote}[1]{\ulcorner {#1} \urcorner\xspace}
+
+% Slightly smaller section headings
+\usepackage[small]{titlesec}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+%% Fancy headers with section & subsection titles
+\renewcommand{\sectionmark}[1]{\markboth{\small \thesection.\ #1}{}} 
+\renewcommand{\subsectionmark}[1]{\markright{\small #1}}
+\lhead{\nouppercase{\leftmark}}
+\rhead{\nouppercase{\rightmark}}
+
+%% Make subsubsection headings italic
+\titleformat{\subsubsection}
+{\itshape\normalsize}{\thesubsubsection}{1em}{}
+
+\renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{\textbf{\MakeLowercase{#1}}}}
+\setlist[description]{style=nextline}
+
+%% URL font matches surrounding text
+\urlstyle{same}
+
+
+%% Allow text to stretch a little into margins to avoid bad line-breaks
+\setlength{\emergencystretch}{3em}  
+
+% Hyperref
+
+\usepackage[			%
+	plainpages = false, 	%
+	pdfpagelabels, 		%
+	bookmarksnumbered, 	%
+	pdftex, 			%
+	colorlinks = true, 	%
+	citecolor  = mds_linkcolor, 	%
+	linkcolor  = mds_linkcolor, 	%
+	urlcolor   = blue 		%
+]{hyperref} 
+
+%% Quote environment takes up less space
+%% copied from savetrees.sty
+\makeatletter
+\renewenvironment{quote}
+               {\list{}{\listparindent=0pt%whatever you need
+                        \itemindent    \listparindent
+                        \leftmargin=2em%  whatever you need
+                        \rightmargin=2em%whatever you need
+                        \topsep=0pt%%%%%  whatever you need
+                        \parsep        \z@ \@plus\p@}%
+                \item\relax}
+               {\endlist}
+\makeatother
+
+
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil#1%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+
+\usepackage{titling}
+
+\pretitle{\par\vskip 3em \begin{flushleft}\LARGE\bfseries}
+\posttitle{\end{flushleft}\par\vskip 0.5em}
+\preauthor{\begin{flushleft}\normalsize\bigskip}
+\postauthor{\end{flushleft}}
+\predate{\begin{flushleft}\normalsize}
+\postdate{\end{flushleft}}
+
+\def\myaffiliation{University of Edinburgh}
+\def\myauthor{Mark Sprevak}
+\def\myemail{\small{\texttt{\href{mailto:mark.sprevak@ed.ac.uk}{mark.sprevak@ed.ac.uk}}}}
+\def\mytitle{Article Title}
+
+
+\renewenvironment{abstract}{\begin{quote}}{\end{quote}}
+% 
+% \author{Mark~Sprevak
+%  (\href{mailto:mark.sprevak@ed.ac.uk}{mark.sprevak@ed.ac.uk})
+% }
+% 
+
+\date{\gitAuthorDate}
+
+\title{\bigskip \bigskip {{\mytitle}}}
+
+\author{\myauthor \\
+  \emph{\myaffiliation}}% \thanks{I am grateful to }
+
+
+%% Stuff that gets inserted by default just after \begin{document}
+\AtBeginDocument{
+
+	%% Correctly set author and title metadata in output PDF
+	\makeatletter
+	  \hypersetup{
+	    pdftitle = {\@title},
+	    pdfauthor = {\@author}
+	  }
+	\makeatother
+	
+	\maketitle
+	
+	%% Paragraphs don't indent first line, add small space between paras
+	\setlength{\parindent}{0pt}
+	\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+
+
+%% Stuff that gets inserted by default just before \end{document}
+\AtEndDocument{
+
+	%% Set headings for References
+	\rhead{}										
+	\lhead{\small References}
+
+	%% Bibliography - natbib
+	% \bibliographystyle{newapa}
+	% \bibliography{refs}
+
+	%% Bibliography - biblatex
+	\printbibliography
+	
+	%% Print git version and git date at end
+	\flushright{\sffamily \scriptsize \gitAbbrevHash\ on \gitAuthorDate}
+
+	%\layout
+}
