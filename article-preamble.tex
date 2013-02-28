@@ -1,5 +1,4 @@
-% TODO Reparse gitinfo dates into form 1st Februart 2012
-% TODO Check for git info before printing it at the end
+% TODO Reparse gitinfo dates into form 1st February 2012
 % TODO Run trials for different bottom margins
 % TODO Add publication info
 % TODO Add email address
@@ -22,6 +21,7 @@
 \usepackage{url}
 \usepackage{gitinfo}
 \usepackage{xcolor}
+%% Parskip seems to not wor k
 % \usepackage[parfill]{parskip}
 \usepackage{enumitem}
 \usepackage[british]{babel}
@@ -76,16 +76,16 @@
 
 % Hyperref
 
-\usepackage[			%
-	plainpages = false, 	%
-	pdfpagelabels, 		%
-	bookmarksnumbered, 	%
-	pdftex, 			%
-	colorlinks = true, 	%
-	citecolor  = mds_linkcolor, 	%
-	linkcolor  = mds_linkcolor, 	%
-	urlcolor   = blue 		%
-]{hyperref} 
+\usepackage[
+	plainpages = false,
+	pdfpagelabels,
+	bookmarksnumbered,
+	pdftex,
+	colorlinks = true,
+	citecolor  = mds_linkcolor,
+	linkcolor  = mds_linkcolor,
+	urlcolor   = blue
+]{hyperref}
 
 %% Quote environment takes up less space
 %% copied from savetrees.sty
@@ -110,7 +110,6 @@
 \newenvironment{aquote}[1]
   {\savebox\mybox{#1}\begin{quote}}
   {\signed{\usebox\mybox}\end{quote}}
-
 
 \usepackage{titling}
 
@@ -175,8 +174,12 @@
 	%% Bibliography - biblatex
 	\printbibliography
 	
-	%% Print git version and git date at end
-	\flushright{\sffamily \scriptsize \gitAbbrevHash\ on \gitAuthorDate}
+	%% Print git version and git date, if set, at end
+	\ifnum\pdfstrcmp{\gitAuthorDate}{(None)}=0 
+		\relax 
+	\else
+		\flushright{\sffamily \scriptsize \gitAbbrevHash\ on \gitAuthorDate}
+	\fi
 
 	%\layout
 }
