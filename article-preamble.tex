@@ -106,7 +106,6 @@
 \lhead{\nouppercase{\leftmark}}
 \rhead{\nouppercase{\rightmark}}
 \fancyfoot[C]{\thepage}
-	
 
 %% Description labels: bold, small caps, and lowercase
 %% Description: forced on next line if label is too long
@@ -163,7 +162,6 @@
   {\savebox\mybox{#1}\begin{quote}}
   {\signed{\usebox\mybox}\end{quote}}
 
-
 %% Title
 %%
 \pretitle{\par\vskip 3em \begin{flushleft}\LARGE\bfseries}
@@ -176,8 +174,9 @@
 \author{\myauthor 					\\
   			\emph{\myaffiliation}}
 
-%% \gitAuthorDate set: print it as the date
-%% Otherwise: print '(None)' as the date
+%% \gitAuthorDate set: set that as the date
+%% Otherwise: set '(None)' as the date
+%% Can always be overridden by setting \date{...} explicitly later
 %%
 \ifnum\pdfstrcmp{\gitAuthorDate}{(None)}=0 
 	\date{\gitAuthorDate}
