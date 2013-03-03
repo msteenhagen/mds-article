@@ -5,20 +5,23 @@
 %% Borrows heavily from many other sources, most notably Kieran Healy:
 %% <https://github.com/kjhealy/latex-custom-kjh>
 %%
+%% Eamples of typeset PDFs: <http://goo.gl/Or8cC> 
+%%
+%%
 %% # Usage
 %%
 %% This file should be input in the first line of a .tex file, e.g.:
 %%
 %% \input{article-preamble.tex} 
 %% \title{My article title}
+%% \published{Forthcoming in the \emph{The Journal}}
+%%
 %% \begin{document}
 %% ...
 %% \end{document}
 %%
-%% The \published command adds publication info:
-%% e.g. \published{Forthcoming in the \emph{The Journal}}
 %%
-%% # Prerequisites #
+%% # Prerequisites
 %%
 %% 1. A modern LaTeX installation
 %% 2. Minion Pro fonts: <http://goo.gl/lQqMy>
@@ -29,17 +32,11 @@
 \usepackage{fixltx2e}
 \usepackage[T1]{fontenc}
 \usepackage[a4paper]{geometry}
-\geometry{
-  top=2.5cm,            % <-- you want to adjust this
-  bottom=3.5cm,
-  headheight=3ex,       %% <-- and this
-  headsep=2ex,          % <-- and this
-}
+%% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
 \usepackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}
 \usepackage[scaled=0.85]{inconsolata}
 \usepackage{booktabs}
 \usepackage{graphicx}
-\usepackage{setspace} 				% Doublespacing, etc.
 \usepackage{xcolor}
 \usepackage{url}
 \usepackage{enumitem}
@@ -56,10 +53,18 @@
 \def\myaffiliation{University of Edinburgh}
 \def\myemail{\texttt{\href{mailto:mark.sprevak@ed.ac.uk}{mark.sprevak@ed.ac.uk}}}
 
+\geometry{
+	top=2.5cm,
+	bottom=3.5cm,
+	headheight=3ex,
+	headsep=2ex
+}
+
 %% Bibliography - biblatex 
 %%
 \usepackage[useprefix,authordate,natbib,backend=biber]{biblatex-chicago}
-\setlength\bibitemsep{6pt}	
+\setlength\bibitemsep{6pt}
+%% addbibresource: change `refs.bib` to the name of your .bib file
 \addbibresource{refs.bib}
 
 %% Bibliography - natbib 
@@ -68,13 +73,11 @@
 % \setlength{\bibsep}{6pt}
 
 
-%% Header for first page
+%% Header: first page
 %%
 %% Center footer:	page number
 %% Right header:	email address
 %% Left header:		publication info/'this is a draft'
-%%
-%% Publication set with \published
 %%
 \pagestyle{fancy}
 
@@ -92,7 +95,7 @@
  	\fi
 }
 
-%% Headers for all pages but References
+%% Header: all other pages but References
 %%
 %% Center footer:	page number
 %% Right header:	subsection title
@@ -110,19 +113,19 @@
 \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{\textbf{\MakeLowercase{#1}}}}
 \setlist[description]{style=nextline}
 
-%% Section titles: make sub-subsection headings italic
+%% Section titles: sub-subsection headings italic
 \titleformat{\subsubsection}
 {\itshape\normalsize}{\thesubsubsection}{1em}{}
 
-%% URL font matches surrounding text
+%% URL font: matches surrounding text
 % \urlstyle{same}
 
 \definecolor{purple_link}{RGB}{76, 64, 133}
 
-%% Force footnotes to stay on the same page
+%% Footnotes: stay on the same page
 \interfootnotelinepenalty=10000 	
 
-%% Allow text to stretch a little into margins to avoid bad line-breaks
+%% Text can stretch a little into margins to avoid bad line-breaks
 \setlength{\emergencystretch}{3em}  
 
 \usepackage[
@@ -136,8 +139,7 @@
 	urlcolor   = purple_link
 ]{hyperref}
 
-%% Quote environment takes up less space
-%% copied from savetrees.sty
+%% Quote environment: take up less space (copied from savetrees.sty)
 \makeatletter
 \renewenvironment{quote}
                {\list{}{\listparindent=0pt%whatever you need
@@ -150,6 +152,8 @@
                {\endlist}
 \makeatother
 
+%% aquote environment: citation always flush right, newline when necessary
+%% begin{aquote}{\citep{Lewis00}} ... \end{aquote} 
 \def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
   \hbox{}\nobreak\hfil#1%
   \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
@@ -160,7 +164,7 @@
   {\signed{\usebox\mybox}\end{quote}}
 
 
-%% Titling 
+%% Title
 %%
 \pretitle{\par\vskip 3em \begin{flushleft}\LARGE\bfseries}
 \posttitle{\end{flushleft}\par\vskip 0.5em}
@@ -169,8 +173,11 @@
 \predate{\begin{flushleft}\normalsize}
 \postdate{\end{flushleft}}
 
-%% If \gitAuthorDate is set, print it as the date
-%% If not, then print '(None)' to complain as the date
+\author{\myauthor 					\\
+  			\emph{\myaffiliation}}
+
+%% \gitAuthorDate set: print it as the date
+%% Otherwise: print '(None)' as the date
 %%
 \ifnum\pdfstrcmp{\gitAuthorDate}{(None)}=0 
 	\date{\gitAuthorDate}
@@ -178,16 +185,10 @@
 	\date{\printdate{\gitAuthorDate}}
 \fi
 
-\author{\myauthor 					\\
-  			\emph{\myaffiliation}}
-
-%% Set up a plain abstract environment
-%%
+%% Abstract: plain quote environment
 \renewenvironment{abstract}{\begin{quote}}{\end{quote}}
 
-
-%% Inserted by default just after \begin{document}
-%%
+%% Inserted after \begin{document}
 \AtBeginDocument{
 
 	%% Set author and title metadata in output PDF
@@ -200,18 +201,16 @@
 	
 	\maketitle
 	
-	%% Paragraphs don't indent first line
-	%% Add small space to separate paragraphs
+	%% Paragraphs: don't indent first line
+	%% Paragraphs: add small space to separate paragraphs
 	\setlength{\parindent}{0pt}
 	\setlength{\parskip}{6pt plus 2pt minus 1pt}
 }
 
-
-%% Inserted by default just before \end{document}
-%%
+%% Inserted before \end{document}
 \AtEndDocument{
 
-	%% Reset headings for References
+	%% Header: reset header for References
 	\rhead{}										
 	\lhead{\small References}
 
@@ -222,7 +221,7 @@
 	%% Bibliography - biblatex
 	\printbibliography
 	
-	%% Print git version and git date if set at end, if not do nothing
+	%% Git hash version: print if set, otherwise do nothing
 	\ifnum\pdfstrcmp{\gitAuthorDate}{(None)}=0 
 		\relax 
 	\else
