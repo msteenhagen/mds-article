@@ -1,4 +1,5 @@
 % TODO add fonts to latex
+% TODO check options for bibtex (autosorting of citations, replacing 'and' with '&')
 %% Document preamble for articles
 %% Mark Sprevak <http://sites.google.com/site/msprevak>
 %%
@@ -63,7 +64,7 @@
 
 %% Bibliography - biblatex 
 %%
-\usepackage[useprefix,authordate,natbib,backend=biber]{biblatex-chicago}
+\usepackage[useprefix,authordate,natbib,sortcites,backend=biber]{biblatex-chicago}
 \setlength\bibitemsep{6pt}
 %% addbibresource: change `refs.bib` to the name of your .bib file
 \addbibresource{refs.bib}
