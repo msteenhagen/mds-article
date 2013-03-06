@@ -1,3 +1,4 @@
+% TODO fancyhdr heading for References to follow same style as others
 % TODO minipages for both headers on p. 1
 % TODO add fonts to latex
 % TODO check options for bibtex (replacing 'and' with '&')
@@ -7,12 +8,11 @@
 %% Borrows heavily from many other sources, most notably Kieran Healy:
 %% <https://github.com/kjhealy/latex-custom-kjh>
 %%
-%% Eamples of typeset PDFs: <http://goo.gl/Or8cC> 
-%%
+%% Examples of typeset PDFs: <http://goo.gl/Or8cC> 
 %%
 %% # Usage
 %%
-%% This file should be input in the first line of a .tex file, e.g.:
+%% This file should be input in first line of a .tex file, e.g.:
 %%
 %% \input{article-preamble.tex} 
 %% \title{My article title}
@@ -23,11 +23,12 @@
 %% \end{document}
 %%
 %%
-%% # Notes
+%% # Useful commands
 %%
-%% \headers{}: suppresses headers (useful in short documents) 
-%% \published{...}: print publication info as {...}
-%% If \published{...} is absent: print 'This is a draft' instead
+%% \date{...}: if absent, print date as \gitAuthorDate
+%% \published{...}: print publication info as ...
+%% \published{...}: if absent, print 'Draft only' instead
+%% \headers{}: suppresses running headers (useful for short documents) 
 %%
 %% # Prerequisites
 %%
@@ -86,8 +87,7 @@
 %%
 %% Center footer:	page number
 %% Right header:	email address
-%% Left header:		publication info/'this is a draft'
-%%
+%% Left header:		publication info/'Draft only'
 \pagestyle{fancy}
 
 \newcommand{\published}[1]{\def\publicationinfo{{#1}}}
@@ -105,12 +105,11 @@
  	\fi
 }
 
-%% Header: all other pages but References
+%% Header: running headers
 %%
 %% Center footer:	page number
 %% Right header:	subsection title
 %% Left header:		section number and title
-%%
 \renewcommand{\sectionmark}[1]{\markboth{\small \thesection.\ #1}{}} 
 \renewcommand{\subsectionmark}[1]{\markright{\small #1}}
 \lhead{\nouppercase{\leftmark}}
@@ -129,6 +128,7 @@
 %% URL font: matches surrounding text
 % \urlstyle{same}
 
+%% Dark purple for hyperlinks
 \definecolor{purple_link}{RGB}{76, 64, 133}
 
 %% Footnotes: stay on the same page
@@ -161,8 +161,8 @@
                {\endlist}
 \makeatother
 
-%% aquote environment: citation always flush right, newline when necessary
-%% begin{aquote}{\citep{Lewis00}} ... \end{aquote} 
+%% aquote environment: citation flush right, newline when necessary
+%% 	usage: begin{aquote}{\citep{Lewis00}} ... \end{aquote} 
 \def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
   \hbox{}\nobreak\hfil#1%
   \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
@@ -172,8 +172,7 @@
   {\savebox\mybox{#1}\begin{quote}}
   {\signed{\usebox\mybox}\end{quote}}
 
-%% Title
-%%
+%% Title, author, and institution
 \pretitle{\par\vskip 3em \begin{flushleft}\LARGE\bfseries}
 \posttitle{\end{flushleft}\par\vskip 0.5em}
 \preauthor{\begin{flushleft}\normalsize\bigskip}
@@ -184,10 +183,10 @@
 \author{\myauthor 					\\
   			\emph{\myaffiliation}}
 
+%% Date
 %% \gitAuthorDate set: set that as the date
 %% Otherwise: set '(None)' as the date
-%% Can always be overridden by setting \date{...} explicitly later
-%%
+%% This is overridden if \date{...} set manually in document
 \ifnum\pdfstrcmp{\gitAuthorDate}{(None)}=0 
 	\date{\gitAuthorDate}
 \else
@@ -200,7 +199,7 @@
 %% Inserted after \begin{document}
 \AtBeginDocument{
 
-	%% Set author and title metadata in output PDF
+	%% Metadata in output PDF: title and author
 	\makeatletter
 	  \hypersetup{
 	    pdftitle = {\@title},
@@ -210,9 +209,9 @@
 	
 	\maketitle
 	
-	%% \headers{} suppresses headers
+	%% \headers{} suppresses running headers
 	\ifdefined\setnoheaders
-		\fancyhead[L,R]{}
+		\fancyhead{}
 	  \renewcommand{\headrulewidth}{0pt}
 	\fi
 	
@@ -225,15 +224,14 @@
 %% Inserted before \end{document}
 \AtEndDocument{
 
-	%% Header: reset header for References
-	%% \headers{} suppresses headers
+	%% Header: running headers for References
+	%% \headers{} suppresses running headers
 	\ifdefined\setnoheaders
-		\rhead{}										
-		\lhead{}
+		\fancyhead{}
 	  \renewcommand{\headrulewidth}{0pt}
 	\else
-		\rhead{}										
-		\lhead{\small \refname}
+		\fancyhead[R]{}
+		\fancyhead[L]{\small \refname}
 	\fi
 	
 	%% Bibliography - natbib
@@ -243,7 +241,7 @@
 	%% Bibliography - biblatex
 	\printbibliography
 	
-	%% Git hash version: print if set, otherwise do nothing
+	%% Git date and commit hash: print if set, otherwise do nothing
 	\ifnum\pdfstrcmp{\gitAuthorDate}{(None)}=0 
 		\relax 
 	\else
