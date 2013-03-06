@@ -53,6 +53,7 @@
 \usepackage{fancyhdr}
 \usepackage{titling}
 \usepackage{gitinfo}
+\usepackage{layout}
 \usepackage[small]{titlesec}
 \usepackage[british,cleanlook]{isodate}
 \usepackage[british]{babel}
@@ -99,7 +100,8 @@
 	\fancyfoot[C]{\thepage}
 	\fancyhead[R]{\footnotesize \myemail}
 	\ifdefined\publicationinfo
-		\fancyhead[L]{\footnotesize	\publicationinfo}
+		\fancyhead[L]{%  
+			\fbox{\parbox[t]{.67\textwidth}{\footnotesize	\publicationinfo}}}
 	\else
 		\fancyhead[L]{\footnotesize	\emph{Draft only. Please do not cite without permission.}}
  	\fi
@@ -110,6 +112,7 @@
 %% Center footer:	page number
 %% Right header:	subsection title
 %% Left header:		section number and title
+\fancyhf{}
 \renewcommand{\sectionmark}[1]{\markboth{\small \thesection.\ #1}{}} 
 \renewcommand{\subsectionmark}[1]{\markright{\small #1}}
 \lhead{\nouppercase{\leftmark}}
@@ -200,12 +203,10 @@
 \AtBeginDocument{
 
 	%% Metadata in output PDF: title and author
-	\makeatletter
-	  \hypersetup{
-	    pdftitle = {\@title},
-	    pdfauthor = {\@author}
-	  }
-	\makeatother
+  \hypersetup{
+    pdftitle = {\thetitle},
+    pdfauthor = {\myauthor}
+  }
 	
 	\maketitle
 	
@@ -247,4 +248,6 @@
 	\else
 		\flushright{\sffamily \scriptsize \gitAbbrevHash\ on \gitAuthorDate}
 	\fi
+	
+	\layout{}
 }
