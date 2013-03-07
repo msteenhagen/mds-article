@@ -53,7 +53,6 @@
 \usepackage{fancyhdr}
 \usepackage{titling}
 \usepackage{gitinfo}
-\usepackage{layout}
 \usepackage[small]{titlesec}
 \usepackage[british,cleanlook]{isodate}
 \usepackage[british]{babel}
@@ -100,8 +99,7 @@
 	\fancyfoot[C]{\thepage}
 	\fancyhead[R]{\footnotesize \myemail}
 	\ifdefined\publicationinfo
-		\fancyhead[L]{%  
-			\fbox{\parbox[t]{.67\textwidth}{\footnotesize	\publicationinfo}}}
+		\fancyhead[L]{{\footnotesize	\publicationinfo}}
 	\else
 		\fancyhead[L]{\footnotesize	\emph{Draft only. Please do not cite without permission.}}
  	\fi
@@ -203,10 +201,10 @@
 \AtBeginDocument{
 
 	%% Metadata in output PDF: title and author
-  \hypersetup{
-    pdftitle = {\thetitle},
-    pdfauthor = {\myauthor}
-  }
+	\hypersetup{
+		pdftitle = {\thetitle},
+		pdfauthor = {\myauthor}
+	}
 	
 	\maketitle
 	
@@ -249,5 +247,4 @@
 		\flushright{\sffamily \scriptsize \gitAbbrevHash\ on \gitAuthorDate}
 	\fi
 	
-	\layout{}
 }
