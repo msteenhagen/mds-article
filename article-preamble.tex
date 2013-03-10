@@ -88,20 +88,22 @@
 %% Right header:	email address
 %% Left header:		publication info/'Draft only'
 
-\newcommand{\published}[1]{\def\publicationinfo{{#1}}}
-\newcommand{\headers}[1]{\def\setnoheaders{{#1}}}
+\newcommand{\published}[1]{\def\publicationinfo{#1}}
+\newcommand{\doi}[1]{\def\doiinfo{#1}}
+\newcommand{\headers}[1]{\def\setnoheaders{#1}}
+\newcommand{\doilink}[1]{\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
 
 \renewpagestyle{plain}{
   \setheadrule{0pt}
 	\setfoot{}{\thepage}{}
 	\ifdefined\publicationinfo
-		\sethead{{\parbox[t][3cm]{.66\textwidth}{\footnotesize \publicationinfo}}}
+		\sethead{{\parbox[t][3cm]{.70\textwidth}{\footnotesize \strut \publicationinfo \\ \doilink{\doiinfo} }}} % http://dx.doi.org/\doiinfo
 						{}
-						{{\parbox[t][3cm]{.33\textwidth}{\footnotesize \hfill \myemail}}}
+						{{\parbox[t][3cm]{.30\textwidth}{\footnotesize \strut \hfill \myemail}}}
 	\else
-		\sethead{\footnotesize \emph{Draft only. Please do not cite without permission.}}
+		\sethead{\footnotesize \strut \emph{Draft only. Please do not cite without permission.}}
 						{}
-						{\footnotesize \myemail}
+						{\footnotesize \strut \myemail}
  	% \fi
 }
 
