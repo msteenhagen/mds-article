@@ -41,7 +41,7 @@
 \usepackage{fixltx2e}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[a4paper]{geometry}
+\usepackage[a4paper,showframe]{geometry}
 %% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
 \usepackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}
 \usepackage[scaled=0.85]{inconsolata}
@@ -57,6 +57,8 @@
 \usepackage[british]{babel}
 \usepackage[autostyle]{csquotes}
 \usepackage[babel]{microtype}
+ \usepackage{calc}
+
 
 \def\myauthor{Mark Sprevak}
 \def\myaffiliation{University of Edinburgh}
@@ -91,20 +93,19 @@
 \newcommand{\published}[1]{\def\publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\doiinfo{#1}}
 \newcommand{\headers}[1]{\def\setnoheaders{#1}}
-\newcommand{\doilink}[1]{\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
 
 \renewpagestyle{plain}{
   \setheadrule{0pt}
 	\setfoot{}{\thepage}{}
 	\ifdefined\publicationinfo
-		\sethead{{\parbox[t][3cm]{.70\textwidth}{\footnotesize \strut \publicationinfo \\ \doilink{\doiinfo} }}} % http://dx.doi.org/\doiinfo
+		\sethead{{\parbox[t][3cm]{.70\textwidth}{\footnotesize \strut \publicationinfo \doiinsert \vfill \hline }}}
 						{}
-						{{\parbox[t][3cm]{.30\textwidth}{\footnotesize \strut \hfill \myemail}}}
+						{\footnotesize \myemail}
 	\else
 		\sethead{\footnotesize \strut \emph{Draft only. Please do not cite without permission.}}
 						{}
 						{\footnotesize \strut \myemail}
- 	% \fi
+ 	\fi
 }
 
 %% Header: running headers
@@ -207,6 +208,15 @@
 		pdftitle = {\thetitle},
 		pdfauthor = {\myauthor}
 	}
+
+	\ifdefined\doiinfo
+		\newcommand{\doilink}[1]{
+			\par \texttt{\href{http://dx.doi.org/#1}{doi:#1}}
+		}
+		\newcommand{\doiinsert}{\doilink{\doiinfo}}
+	\else
+		\newcommand{\doiinsert}{\relax}
+	\fi
 	
 	\maketitle
 	
