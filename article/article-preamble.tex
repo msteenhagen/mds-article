@@ -37,7 +37,6 @@
 %% addbibresource: change `refs.bib` to the name of your .bib file
 \addbibresource{refs.bib}
 
-
 %% Header: title page
 %%
 %% Center footer:	page number
@@ -71,21 +70,17 @@
 	\headrule
 	\setfoot{}{\thepage}{}
 	\sethead{\small \thesection \quad \sectiontitle}{}{\small \subsectiontitle}
-	% \sethead{test}{}{}
 }
 \pagestyle{fancy}
 
-%% Description labels: bold, small caps, and lowercase
-%% Description: forced on next line if label is too long
+%% Description labels: bold, small caps, and enforced lowercase
+%% Description: move to next line if label is too long
 \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{\textbf{\MakeLowercase{#1}}}}
 \setlist[description]{style=nextline}
 
 %% Section titles: sub-subsection headings italic
 \titleformat{\subsubsection}
 {\itshape\normalsize}{\thesubsubsection}{1em}{}
-
-%% URL font: matches surrounding text
-% \urlstyle{same}
 
 %% Dark purple for hyperlinks
 \definecolor{purple_link}{RGB}{76, 64, 133}
@@ -121,7 +116,7 @@
 \makeatother
 
 %% aquote environment: citation flush right, newline when necessary
-%% 	usage: begin{aquote}{\citep{Lewis00}} ... \end{aquote} 
+%% usage: begin{aquote}{\citep{Lewis00}} ... \end{aquote} 
 \def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
   \hbox{}\nobreak\hfil#1%
   \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
@@ -164,6 +159,7 @@
 		pdfauthor = {\myauthor}
 	}
 
+	%% \doiinsert: formatted DOI link if \doi{} used, blank otherwise
 	\ifdefined\doiinfo
 		\newcommand{\doilink}[1]{\par\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
 		\newcommand{\doiinsert}{\doilink{\doiinfo}}
