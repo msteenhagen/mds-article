@@ -18,14 +18,15 @@ by Mark Sprevak (<http://sites.google.com/site/msprevak>)
     ...
     \end{document}
 
-
 # Useful commands
 
-`\title{...}`:			document title  
-`\date{...}`:			document date---if absent: use `\gitAuthorDate`  
-`\published{...}`:	publication info---if absent: show 'Draft only'  
-`\doi{...}`:				document DOI  
-`\headers{}`:			suppress running headers (useful for short documents)  
+Command           Effect
+-------           ------
+`\title{...}`     document title  
+`\date{...}`			document date---if absent, displays `\gitAuthorDate`  
+`\published{...}` publication info---if absent, displays 'Draft only'  
+`\doi{...}`				document DOI  
+`\headers{}`			suppress running headers (useful for short documents)  
 
 # Prerequisites
 
