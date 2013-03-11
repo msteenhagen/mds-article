@@ -1,63 +1,64 @@
-% TODO fancyhdr heading for References to follow same style as others
-% TODO minipages for both headers on p. 1
-% TODO add fonts to latex
-% TODO check options for bibtex (replacing 'and' with '&')
-%% Document preamble for articles
-%% Mark Sprevak <http://sites.google.com/site/msprevak>
-%%
-%% Borrows heavily from many other sources, most notably Kieran Healy:
-%% <https://github.com/kjhealy/latex-custom-kjh>
-%%
-%% Examples of typeset PDFs: <http://goo.gl/Or8cC> 
-%%
+%% # Article-class preamble  
+%% 
+%% Mark Sprevak (<http://sites.google.com/site/msprevak>)
+%% 
+%% * Examples of typeset PDFs: <http://goo.gl/Or8cC>  
+%% * A minimal working example: <http://goo.gl/fDLrq>
+%% 
 %% # Usage
-%%
-%% This file should be input in first line of a .tex file, e.g.:
-%%
-%% \input{article-preamble.tex} 
-%% \title{My article title}
-%% \published{Forthcoming in the \emph{The Journal}}
-%%
-%% \begin{document}
-%% ...
-%% \end{document}
-%%
+%% 
+%% This file should be `\input{}` in first line of a .tex file, e.g.:
+%% 
+%%     \input{article-preamble.tex} 
+%%     \title{My article title}
+%%     \published{Forthcoming in the \emph{The Journal}}
+%%     \doi{10.1001/abcd/abc001}
+%% 
+%%     \begin{document}
+%%     ...
+%%     \end{document}
+%% 
 %%
 %% # Useful commands
-%%
-%% \date{...}: if absent, print date as \gitAuthorDate
-%% \published{...}: print publication info as ...
-%% \published{...}: if absent, print 'Draft only' instead
-%% \headers{}: suppresses running headers (useful for short documents) 
-%%
+%% 
+%% `\title{...}`:			document title  
+%% `\date{...}`:			document date---if absent: use `\gitAuthorDate`  
+%% `\published{...}`:	publication info---if absent: show 'Draft only'  
+%% `\doi{...}`:				document DOI  
+%% `\headers{}`:			suppress running headers (useful for short documents)  
+%% 
 %% # Prerequisites
-%%
+%% 
 %% 1. A modern LaTeX installation
 %% 2. Minion Pro fonts: <http://goo.gl/lQqMy>
 %% 3. Biblatex
 %% 4. The `gitinfo` package
-
+%% 
+%% # Acknowledgements
+%% 
+%% Borrows from many sources, most notably Kieran Healy's design:
+%% <https://github.com/kjhealy/latex-custom-kjh>
+ 
 \documentclass[oneside,12pt]{article}
 \usepackage{fixltx2e}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper,showframe]{geometry}
+% \usepackage[a4paper]{geometry}
 %% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
 \usepackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}
 \usepackage[scaled=0.85]{inconsolata}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{url}
 \usepackage{enumitem}
 \usepackage{titling}
 \usepackage{gitinfo}
-\usepackage[small,pagestyles]{titlesec}
+\usepackage[small,topmarks,pagestyles]{titlesec}
 \usepackage[british,cleanlook]{isodate}
 \usepackage[british]{babel}
 \usepackage[autostyle]{csquotes}
 \usepackage[babel]{microtype}
- \usepackage{calc}
 
 
 \def\myauthor{Mark Sprevak}
@@ -75,6 +76,7 @@
 %%
 \usepackage[useprefix,authordate,natbib,sortcites,backend=biber]{biblatex-chicago}
 \setlength\bibitemsep{6pt}
+\defbibheading{bibliography}[\refname]{\section*{#1}}
 %% addbibresource: change `refs.bib` to the name of your .bib file
 \addbibresource{refs.bib}
 
@@ -84,25 +86,25 @@
 % \setlength{\bibsep}{6pt}
 
 
-%% Header: first page
+%% Header: title page
 %%
 %% Center footer:	page number
 %% Right header:	email address
-%% Left header:		publication info/'Draft only'
-
+%% Left header:		publication info/'Draft only', DOI if \doi{..} set
 \newcommand{\published}[1]{\def\publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\doiinfo{#1}}
 \newcommand{\headers}[1]{\def\setnoheaders{#1}}
 
 \renewpagestyle{plain}{
-  \setheadrule{0pt}
 	\setfoot{}{\thepage}{}
 	\ifdefined\publicationinfo
-		\sethead{{\parbox[t][3cm]{.70\textwidth}{\footnotesize \strut \publicationinfo \doiinsert \vfill \hline }}}
+		\sethead{{\parbox[t][3cm]{.70\textwidth}
+						 {\footnotesize \strut \publicationinfo \doiinsert}}}
 						{}
 						{\footnotesize \myemail}
 	\else
-		\sethead{\footnotesize \strut \emph{Draft only. Please do not cite without permission.}}
+		\sethead{\footnotesize \strut 
+						 \emph{Draft only. Please do not cite without permission.}}
 						{}
 						{\footnotesize \strut \myemail}
  	\fi
@@ -113,12 +115,13 @@
 %% Center footer:	page number
 %% Right header:	subsection title
 %% Left header:		section number and title
-% \fancyhf{}
-% \renewcommand{\sectionmark}[1]{\markboth{\small \thesection \quad #1}{}} 
-% \renewcommand{\subsectionmark}[1]{\markright{\small #1}}
-% \lhead{\nouppercase{\leftmark}}
-% \rhead{\nouppercase{\rightmark}}
-% \fancyfoot[C]{\thepage}
+\newpagestyle{fancy}{
+	\headrule
+	\setfoot{}{\thepage}{}
+	\sethead{\small \thesection \quad \sectiontitle}{}{\small \subsectiontitle}
+	% \sethead{test}{}{}
+}
+\pagestyle{fancy}
 
 %% Description labels: bold, small caps, and lowercase
 %% Description: forced on next line if label is too long
@@ -210,9 +213,7 @@
 	}
 
 	\ifdefined\doiinfo
-		\newcommand{\doilink}[1]{
-			\par \texttt{\href{http://dx.doi.org/#1}{doi:#1}}
-		}
+		\newcommand{\doilink}[1]{\par\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
 		\newcommand{\doiinsert}{\doilink{\doiinfo}}
 	\else
 		\newcommand{\doiinsert}{\relax}
@@ -222,8 +223,8 @@
 	
 	%% \headers{} suppresses running headers
 	\ifdefined\setnoheaders
-		\fancyhead{}
-	  \renewcommand{\headrulewidth}{0pt}
+		\sethead{}{}{}
+		\setheadrule{0pt}
 	\fi
 	
 	%% Paragraphs: don't indent first line
@@ -235,16 +236,15 @@
 %% Inserted before \end{document}
 \AtEndDocument{
 
-	%% Header: running headers for References
-	%% \headers{} suppresses running headers
-	% \ifdefined\setnoheaders
-	% 	\fancyhead{}
-	%   \renewcommand{\headrulewidth}{0pt}
-	% \else
-	% 	\fancyhead[R]{}
-	% 	\fancyhead[L]{\small \refname}
-	% \fi
-	
+	% Header: running headers for References
+	% \headers{} suppresses running headers
+	\ifdefined\setnoheaders
+		\sethead{}{}{}
+		\setheadrule{0pt}
+	\else
+		\sethead{\small \refname}{}{}
+	\fi
+		
 	%% Bibliography - natbib
 	% \bibliographystyle{newapa}
 	% \bibliography{refs}
