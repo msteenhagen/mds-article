@@ -60,7 +60,6 @@
 \usepackage[autostyle]{csquotes}
 \usepackage[babel]{microtype}
 
-
 \def\myauthor{Mark Sprevak}
 \def\myaffiliation{University of Edinburgh}
 \def\myemail{\texttt{\href{mailto:mark.sprevak@ed.ac.uk}{mark.sprevak@ed.ac.uk}}}
@@ -72,8 +71,7 @@
 	headsep=2ex
 }
 
-%% Bibliography - biblatex 
-%%
+%% Bibliography: biblatex 
 \usepackage[useprefix,authordate,natbib,sortcites,backend=biber]{biblatex-chicago}
 \setlength\bibitemsep{6pt}
 \defbibheading{bibliography}[\refname]{\section*{#1}}
@@ -240,7 +238,7 @@
 		\sethead{\small \refname}{}{}
 	\fi
 		
-	%% Bibliography - biblatex
+	%% Bibliography: biblatex
 	\printbibliography
 	
 	%% Git date and commit hash: print if set, otherwise do nothing
