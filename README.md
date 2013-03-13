@@ -1,13 +1,14 @@
-# Article-class preamble  
+# Article-like style  
 
 by Mark Sprevak (<http://sites.google.com/site/msprevak>)
 
+* Most recent version: <https://github.com/msprev/mds-article>
 * Examples of typeset PDFs: <http://goo.gl/Or8cC>  
-* A minimal working example: <http://goo.gl/fDLrq>
+* An example article `.tex`: <https://github.com/msprev/mds-article>
 
 # Usage
 
-`article-preamble.tex` should be `\input{}` in first line of your .tex file, e.g.:
+`article-preamble.tex` should be `\input{}` in first line of your `.tex` file, e.g.:
 
     \input{article-preamble.tex} 
     \title{My article title}

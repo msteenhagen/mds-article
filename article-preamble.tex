@@ -1,6 +1,7 @@
-%% Article-class preamble  
-%% Mark Sprevak
-%% ... for more info: <https://github.com/msprev/mds-latex> 
+%% Article-like style
+%% Mark Sprevak <mark.sprevak@ed.ac.uk>
+%% Most recent version: <https://github.com/msprev/mds-article> 
+%% README before use: <https://github.com/msprev/mds-article/README.md>
 %%
 \documentclass[oneside,12pt]{article}
 \usepackage{fixltx2e}
@@ -37,7 +38,8 @@
 %% Bibliography: biblatex 
 \usepackage[useprefix,authordate,natbib,sortcites,backend=biber]{biblatex-chicago}
 \setlength\bibitemsep{6pt}
-\defbibheading{bibliography}[\refname]{\section*{#1}}
+\defbibheading{bibliography}[\refname]{\section{#1}}
+\defbibheading{references}[\refname]{\section{#1}}
 %% addbibresource: change `refs.bib` to the name of your .bib file
 \addbibresource{refs.bib}
 
@@ -193,8 +195,8 @@
 	\ifdefined\setnoheaders
 		\sethead{}{}{}
 		\setheadrule{0pt}
-	\else
-		\sethead{\small \refname}{}{}
+  % \else
+  %   \sethead{\small \refname}{}{}
 	\fi
 		
 	%% Bibliography: biblatex
