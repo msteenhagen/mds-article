@@ -1,14 +1,14 @@
 %% Article-like style
 %% Mark Sprevak <mark.sprevak@ed.ac.uk>
 %% Most recent version: <https://github.com/msprev/mds-article> 
-%% README before use: <https://github.com/msprev/mds-article/README.md>
+%% README: <https://github.com/msprev/mds-article/README.md>
 %%
 \documentclass[oneside,12pt]{article}
 \usepackage{fixltx2e}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[a4paper,showframe]{geometry}
-% \usepackage[a4paper]{geometry}
+% \usepackage[a4paper,showframe]{geometry}
+\usepackage[a4paper]{geometry}
 %% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
 \usepackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}
 \usepackage[scaled=0.85]{inconsolata}
@@ -32,7 +32,7 @@
 	top=2.5cm,
 	bottom=3.5cm,
 	headheight=3ex,
-	headsep=2ex
+	headsep=2.75ex
 }
 
 %% Bibliography: biblatex 
@@ -50,7 +50,7 @@
 %% Left header:		publication info/'Draft only', DOI if \doi{..} set
 \newcommand{\published}[1]{\def\publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\doiinfo{#1}}
-\newcommand{\headers}[1]{\def\setnoheaders{#1}}
+\newcommand{\noheaders}{\def\setnoheaders{true}}
 
 \renewpagestyle{plain}{
 	\setfoot{}{\thepage}{}
@@ -121,16 +121,16 @@
                {\endlist}
 \makeatother
 
-%% aquote environment: citation flush right, newline when necessary
-%% usage: begin{aquote}{\citep{Lewis00}} ... \end{aquote} 
+%% \signed{...}: display flush right, newline when necessary
+%% usage: \signed{\citep{Lewis00}} 
 \def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
   \hbox{}\nobreak\hfil#1%
   \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
 
-\newsavebox\mybox
-\newenvironment{aquote}[1]
-  {\savebox\mybox{#1}\begin{quote}}
-  {\signed{\usebox\mybox}\end{quote}}
+% \newsavebox\mybox
+% \newenvironment{aquote}[1]
+%   {\savebox\mybox{#1}\begin{quote}}
+%   {\signed{\usebox\mybox}\end{quote}}
 
 %% Title, author, and institution
 \pretitle{\par\vskip 3em \begin{flushleft}\LARGE\bfseries}
