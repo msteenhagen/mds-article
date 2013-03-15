@@ -23,7 +23,7 @@ by Mark Sprevak --- <http://sites.google.com/site/msprevak>
 
 # Useful commands
 
-## Before `\begin{document}`
+## In preamble before `\begin{document}`
 
 Command               Effect
 -------               ------
@@ -33,12 +33,19 @@ Command               Effect
 `\doi{...}`				    document DOI  
 `\noheaders`			    suppress running headers (useful for short documents)  
       
-## Inside the `document` environment
+## Inside `document` environment
 
-Command               Effect
--------               ------
-`\signed{...}`        place flush right, add new line if needed (useful for citations)
-      
+----------------------------------------------------------------------------
+Command           Effect
+-------           ----------------------------------------------------------
+`\signed{...}`    place text flush right, add new line if needed (useful for
+                  citations)
+
+`aquote`          `quote` environment with citation flush right, adding a 
+environment       new line if needed, e.g.: \
+                  `\begin{aquote}{\citep{Lewis00}} ... \end{aquote}`
+----------------------------------------------------------------------------
+
 # Prerequisites
 
 1. A modern LaTeX installation

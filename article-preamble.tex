@@ -1,3 +1,4 @@
+% TODO push down title if the publication info gets too long
 %% Article-like style
 %% Mark Sprevak <mark.sprevak@ed.ac.uk>
 %% Most recent version: <https://github.com/msprev/mds-article> 
@@ -121,16 +122,18 @@
                {\endlist}
 \makeatother
 
-%% \signed{...}: display flush right, newline when necessary
+%% \signed{...}: flush right, newline when necessary
 %% usage: \signed{\citep{Lewis00}} 
 \def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
   \hbox{}\nobreak\hfil#1%
   \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
 
-% \newsavebox\mybox
-% \newenvironment{aquote}[1]
-%   {\savebox\mybox{#1}\begin{quote}}
-%   {\signed{\usebox\mybox}\end{quote}}
+%% aquote environment: quote with citation flush right, newline when necessary
+%% usage: begin{aquote}{\citep{Lewis00}} ... \end{aquote} 
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
 
 %% Title, author, and institution
 \pretitle{\par\vskip 3em \begin{flushleft}\LARGE\bfseries}
