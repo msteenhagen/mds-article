@@ -25,18 +25,17 @@ by Mark Sprevak, University of Edinburgh — <http://sites.google.com/site/mspre
 
 ## In preamble before `\begin{document}`
 
-
-| Command           | Effect       
+| Command           | Effect                                                 |
 | ----------------- | ------------------------------------------------------ |
 | `\title{...}`     | document title                                         |
 | `\date{...}`      | document date: if absent, display `\gitAuthorDate`     |
 | `\published{...}` | publication info: if absent, displays 'Draft only'     |
 | `\doi{...}`       | document DOI                                           |
 | `\noheaders`      | suppress running headers (useful for short documents)  |
-      
-## Inside `document` environment
 
-1. `\signed{...}`: place text flush right, add new line if needed (useful for citations)
+## Inside the `document` environment
+
+1. `\signed{...}`: places text flush right, add new line if needed (useful for citations)
 
 2. `aquote` environment: `quote` environment with citation placed flush right, a new line added if needed, e.g.: `\begin{aquote}{\citep{Lewis00}} ... \end{aquote}`
 
