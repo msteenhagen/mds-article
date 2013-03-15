@@ -1,4 +1,4 @@
-# Article-like style  
+# Article-like preamble  
 
 by Mark Sprevak, University of Edinburgh — <http://sites.google.com/site/msprevak>
 
