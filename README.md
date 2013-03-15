@@ -1,16 +1,16 @@
 # Article-like style  
 
-by Mark Sprevak --- <http://sites.google.com/site/msprevak>
+by Mark Sprevak, University of Edinburgh — <http://sites.google.com/site/msprevak>
 
-* Most recent version: <https://github.com/msprev/mds-article>
-* Example `.tex` file: <https://github.com/msprev/mds-article>
-* Examples of typeset PDFs: <http://goo.gl/Or8cC>  
+1. Most recent version: <https://github.com/msprev/mds-article>
+2. Example `.tex` file: <https://github.com/msprev/mds-article>
+3. Examples of typeset PDFs: <http://goo.gl/Or8cC>  
 
 # Usage
 
 `article-preamble.tex` should be `\input{}` in first line of your `.tex` file, e.g.:
 
-~~~~~~~
+```latex
 \input{article-preamble.tex} 
 \title{My article title}
 \published{Forthcoming in the \emph{The Journal}}
@@ -19,32 +19,30 @@ by Mark Sprevak --- <http://sites.google.com/site/msprevak>
 \begin{document}
 ...
 \end{document}
-~~~~~~~
+```
 
 # Useful commands
 
 ## In preamble before `\begin{document}`
 
-Command               Effect
--------               ------
-`\title{...}`         document title  
-`\date{...}`			    document date---if absent, displays `\gitAuthorDate`  
-`\published{...}`     publication info---if absent, displays 'Draft only'  
-`\doi{...}`				    document DOI  
-`\noheaders`			    suppress running headers (useful for short documents)  
+
+| Command           | Effect       
+| ----------------- | ------------------------------------------------------ |
+| `\title{...}`     | document title                                         |
+| `\date{...}`      | document date: if absent, display `\gitAuthorDate`     |
+| `\published{...}` | publication info: if absent, displays 'Draft only'     |
+| `\doi{...}`       | document DOI                                           |
+| `\noheaders`      | suppress running headers (useful for short documents)  |
       
 ## Inside `document` environment
 
-----------------------------------------------------------------------------
-Command           Effect
--------           ----------------------------------------------------------
-`\signed{...}`    place text flush right, add new line if needed (useful for
-                  citations)
-
-`aquote`          `quote` environment with citation flush right, adding a 
-environment       new line if needed, e.g.: \
-                  `\begin{aquote}{\citep{Lewis00}} ... \end{aquote}`
-----------------------------------------------------------------------------
+| Command              | Effect       
+| -------------------- | --------------------------------------------------- |
+| `\signed{...}`       | place text flush right, add new line if needed      |
+|                      | (useful for citations)                              |
+| `aquote` environment | `quote` environment with citation flush right, new  |
+|                      | line if needed, e.g.:                               |
+|                      | `\begin{aquote}{\citep{Lewis00}} ... \end{aquote}`  |
 
 # Prerequisites
 
