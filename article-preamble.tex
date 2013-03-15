@@ -23,7 +23,7 @@
 \usepackage{enumitem}
 \usepackage{titling}
 \usepackage{gitinfo}
-\usepackage[small,topmarks,pagestyles]{titlesec}
+\usepackage[small,pagestyles]{titlesec}
 \usepackage[british,cleanlook]{isodate}
 \usepackage[british]{babel}
 \usepackage[autostyle]{csquotes}
@@ -204,15 +204,6 @@
 
 %% Inserted before \end{document}
 \AtEndDocument{
-
-	%% Header: running headers for References
-	%% \noheaders suppresses running headers
-	\ifdefined\setnoheaders
-		\sethead{}{}{}
-		\setheadrule{0pt}
-  % \else
-  %   \sethead{\small \refname}{}{}
-	\fi
 		
 	%% Bibliography: biblatex
 	\printbibliography
