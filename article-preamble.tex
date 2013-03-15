@@ -1,8 +1,12 @@
 % TODO push down title if the publication info gets too long
+%%
 %% Article-like style
-%% Mark Sprevak <mark.sprevak@ed.ac.uk>
-%% Most recent version: <https://github.com/msprev/mds-article> 
+%%
+%% by Mark Sprevak, University of Edinburgh
+%% <mark.sprevak@ed.ac.uk>
+%%
 %% README: <https://github.com/msprev/mds-article/README.md>
+%% Most recent version: <https://github.com/msprev/mds-article> 
 %%
 \documentclass[oneside,12pt]{article}
 \usepackage{fixltx2e}
@@ -25,9 +29,15 @@
 \usepackage[autostyle]{csquotes}
 \usepackage[babel]{microtype}
 
+%% -----------------------------------------------------------------------
+%% Change these default definitions as appropriate
+%%
 \def\myauthor{Mark Sprevak}
 \def\myaffiliation{University of Edinburgh}
-\def\myemail{\texttt{\href{mailto:mark.sprevak@ed.ac.uk}{mark.sprevak@ed.ac.uk}}}
+\def\myemail{mark.sprevak@ed.ac.uk}
+\def\mybibfile{refs.bib}
+%%
+%% -----------------------------------------------------------------------
 
 \geometry{
 	top=2.5cm,
@@ -36,13 +46,12 @@
 	headsep=2.75ex
 }
 
-%% Bibliography: biblatex 
+%% Bibliography: biblatex
 \usepackage[useprefix,authordate,natbib,sortcites,backend=biber]{biblatex-chicago}
 \setlength\bibitemsep{6pt}
 \defbibheading{bibliography}[\refname]{\section{#1}}
 \defbibheading{references}[\refname]{\section{#1}}
-%% addbibresource: change `refs.bib` to the name of your .bib file
-\addbibresource{refs.bib}
+\addbibresource{\mybibfile}
 
 %% Header: title page
 %%
@@ -53,18 +62,21 @@
 \newcommand{\doi}[1]{\def\doiinfo{#1}}
 \newcommand{\noheaders}{\def\setnoheaders{true}}
 
+\newcommand{\emaillink}[1]{\texttt{\href{mailto:#1}{#1}}}
+\newcommand{\emailinsert}{\emaillink{\myemail}}
+
 \renewpagestyle{plain}{
 	\setfoot{}{\thepage}{}
 	\ifdefined\publicationinfo
 		\sethead{{\parbox[t][3cm]{.70\textwidth}
 						 {\footnotesize \strut \publicationinfo \doiinsert}}}
 						{}
-						{\footnotesize \myemail}
+						{\footnotesize \strut \emailinsert}
 	\else
 		\sethead{\footnotesize \strut 
 						 \emph{Draft only. Please do not cite without permission.}}
 						{}
-						{\footnotesize \strut \myemail}
+						{\footnotesize \strut \emailinsert}
  	\fi
 }
 
@@ -178,7 +190,7 @@
 	
 	\maketitle
 	
-	%% \headers{} suppresses running headers
+	%% \noheaders suppresses running headers
 	\ifdefined\setnoheaders
 		\sethead{}{}{}
 		\setheadrule{0pt}
@@ -193,8 +205,8 @@
 %% Inserted before \end{document}
 \AtEndDocument{
 
-	% Header: running headers for References
-	% \headers{} suppresses running headers
+	%% Header: running headers for References
+	%% \noheaders suppresses running headers
 	\ifdefined\setnoheaders
 		\sethead{}{}{}
 		\setheadrule{0pt}
