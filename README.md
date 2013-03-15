@@ -25,37 +25,19 @@ by Mark Sprevak, University of Edinburgh — <http://sites.google.com/site/mspre
 
 ## In preamble before `\begin{document}`
 
-<<<<<<< HEAD
 | Command           | Effect                                                 |
-=======
-
-| Command           | Effect       
->>>>>>> 8ed74001b5b75cef4b9ac0d3b62a6b9afad41ff4
 | ----------------- | ------------------------------------------------------ |
 | `\title{...}`     | document title                                         |
 | `\date{...}`      | document date: if absent, display `\gitAuthorDate`     |
 | `\published{...}` | publication info: if absent, displays 'Draft only'     |
 | `\doi{...}`       | document DOI                                           |
 | `\noheaders`      | suppress running headers (useful for short documents)  |
-<<<<<<< HEAD
 
 ## Inside the `document` environment
 
 1. `\signed{...}`: places text flush right, add new line if needed (useful for citations)
 
 2. `aquote` environment: `quote` environment with citation placed flush right, a new line added if needed, e.g.: `\begin{aquote}{\citep{Lewis00}} ... \end{aquote}`
-=======
-      
-## Inside `document` environment
-
-| Command              | Effect       
-| -------------------- | --------------------------------------------------- |
-| `\signed{...}`       | place text flush right, add new line if needed      |
-|                      | (useful for citations)                              |
-| `aquote` environment | `quote` environment with citation flush right, new  |
-|                      | line if needed, e.g.:                               |
-|                      | `\begin{aquote}{\citep{Lewis00}} ... \end{aquote}`  |
->>>>>>> 8ed74001b5b75cef4b9ac0d3b62a6b9afad41ff4
 
 # Prerequisites
 
