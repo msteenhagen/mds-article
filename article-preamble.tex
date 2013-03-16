@@ -1,5 +1,7 @@
 % TODO push down title if the publication info gets too long
-% TODO \addauthor[affliation]{name}
+% TODO \authorblock{Joe Bloggs & Jim Blogs \>}: override default author & affliation (particularly useful for multi-authored articles). Value passed is a LaTeX `tabbing` environment that specifies the layout of authors & affliations
+% TODO \email{...}: override default email
+% TODO \bibfile{...}: override default bibfile
 %%
 %% Article-like preamble
 %%
@@ -52,7 +54,6 @@
 \setlength\bibitemsep{6pt}
 \defbibheading{bibliography}[\refname]{\section{#1}}
 \defbibheading{references}[\refname]{\section{#1}}
-\addbibresource{\mybibfile}
 
 %% Header: title page
 %%
@@ -60,10 +61,11 @@
 %% Right header:	email address
 %% Left header:		publication info/'Draft only', DOI if \doi{..} set
 
-\newcommand{\firstauthor}[2]{\def\myauthor{#1} \def\myaffiliation{#2}}
 \newcommand{\published}[1]{\def\publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\doiinfo{#1}}
 \newcommand{\noheaders}{\def\setnoheaders{true}}
+\newcommand{\email}[1]{\def\myemail{#1}}
+\newcommand{\bibfile}[1]{\def\mybibfile{#1}}
 
 \newcommand{\emaillink}[1]{\texttt{\href{mailto:#1}{#1}}}
 \newcommand{\emailinsert}{\emaillink{\myemail}}
@@ -175,6 +177,8 @@
 
 %% Inserted after \begin{document}
 \AtBeginDocument{
+
+  \addbibresource{\mybibfile}
 
 	%% Metadata in output PDF: title and author
 	\hypersetup{

@@ -31,7 +31,8 @@ by Mark Sprevak, University of Edinburgh — <http://sites.google.com/site/mspre
 | `\date{...}`        | document date: if absent, display `\gitAuthorDate`   |
 | `\published{...}`   | publication info: if absent, display 'Draft only'    |
 | `\doi{...}`         | document DOI                                         |
-| `\firstauthor{.}{.}`| set name & affiliation for first author              |
+| `\email{...}`       | override default email                               |
+| `\bibfile{...}`     | override default bibfile                             |
 | `\noheaders`        | suppress running headers (useful for short documents)|
 
 ## Inside the `document` environment
