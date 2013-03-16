@@ -4,7 +4,7 @@ by Mark Sprevak, University of Edinburgh — <http://sites.google.com/site/mspre
 
 1. Most recent version: <https://github.com/msprev/mds-article>
 2. Example `.tex` file: <https://github.com/msprev/mds-article>
-3. Examples of typeset PDFs: <http://goo.gl/Or8cC>  
+3. Examples of typeset PDFs: <https://sites.google.com/site/msprevak/publications>  
 
 # Usage
 
@@ -25,13 +25,14 @@ by Mark Sprevak, University of Edinburgh — <http://sites.google.com/site/mspre
 
 ## In preamble before `\begin{document}`
 
-| Command           | Effect                                                 |
-| ----------------- | ------------------------------------------------------ |
-| `\title{...}`     | document title                                         |
-| `\date{...}`      | document date: if absent, display `\gitAuthorDate`     |
-| `\published{...}` | publication info: if absent, displays 'Draft only'     |
-| `\doi{...}`       | document DOI                                           |
-| `\noheaders`      | suppress running headers (useful for short documents)  |
+| Command             | Effect                                               |
+| -----------------   | ---------------------------------------------------- |
+| `\title{...}`       | document title                                       |
+| `\date{...}`        | document date: if absent, display `\gitAuthorDate`   |
+| `\published{...}`   | publication info: if absent, display 'Draft only'    |
+| `\doi{...}`         | document DOI                                         |
+| `\firstauthor{.}{.}`| set name & affiliation for first author              |
+| `\noheaders`        | suppress running headers (useful for short documents)|
 
 ## Inside the `document` environment
 

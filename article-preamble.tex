@@ -1,4 +1,5 @@
 % TODO push down title if the publication info gets too long
+% TODO \addauthor[affliation]{name}
 %%
 %% Article-like preamble
 %%
@@ -12,8 +13,8 @@
 \usepackage{fixltx2e}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[a4paper,showframe]{geometry}
-% \usepackage[a4paper]{geometry}
+% \usepackage[a4paper,showframe]{geometry}
+\usepackage[a4paper]{geometry}
 %% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
 \usepackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}
 \usepackage[scaled=0.85]{inconsolata}
@@ -58,6 +59,8 @@
 %% Center footer:	page number
 %% Right header:	email address
 %% Left header:		publication info/'Draft only', DOI if \doi{..} set
+
+\newcommand{\firstauthor}[2]{\def\myauthor{#1} \def\myaffiliation{#2}}
 \newcommand{\published}[1]{\def\publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\doiinfo{#1}}
 \newcommand{\noheaders}{\def\setnoheaders{true}}
