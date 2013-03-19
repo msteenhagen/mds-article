@@ -41,7 +41,7 @@ by Mark Sprevak, University of Edinburgh
 
 * `\email{...}`: override default email
 
-* `\authorblock{...}`: override default author & affiliation (useful for multi-authored papers). Value passed to command is the content of a standard LaTeX `tabbing` environment that specifies the layout of authors & affiliations, e.g.:
+* `\authorblock{...}`: override default author & affiliation (useful for multi-authored papers). Value passed is the content of a standard LaTeX `tabbing` environment that specifies the layout of authors & affiliations, e.g.:
 
 ```latex
 \authorblock{
