@@ -1,7 +1,4 @@
 % TODO push down title if the publication info gets too long
-% TODO \authorblock{Joe Bloggs & Jim Blogs \>}: override default author & affliation (particularly useful for multi-authored articles). Value passed is a LaTeX `tabbing` environment that specifies the layout of authors & affliations
-% TODO \email{...}: override default email
-% TODO \bibfile{...}: override default bibfile
 %%
 %% Article-like preamble
 %%
@@ -11,7 +8,7 @@
 %% README: <https://github.com/msprev/mds-article/README.md>
 %% Most recent version: <https://github.com/msprev/mds-article> 
 %%
-\documentclass[oneside,12pt]{article}
+\documentclass[oneside,10pt]{article}
 \usepackage{fixltx2e}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -33,7 +30,7 @@
 \usepackage[babel]{microtype}
 
 %% ==========================================================
-%% Change these definitions as appropriate
+%% Change these defaults as appropriate
 %%
 \def\myauthor{Mark Sprevak}
 \def\myaffiliation{University of Edinburgh}
@@ -54,18 +51,18 @@
 \setlength\bibitemsep{6pt}
 \defbibheading{bibliography}[\refname]{\section{#1}}
 \defbibheading{references}[\refname]{\section{#1}}
+\addbibresource{\mybibfile}
 
 %% Header: title page
 %%
 %% Center footer:	page number
 %% Right header:	email address
 %% Left header:		publication info/'Draft only', DOI if \doi{..} set
-
 \newcommand{\published}[1]{\def\publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\doiinfo{#1}}
 \newcommand{\noheaders}{\def\setnoheaders{true}}
 \newcommand{\email}[1]{\def\myemail{#1}}
-\newcommand{\bibfile}[1]{\def\mybibfile{#1}}
+\newcommand{\authorblock}[1]{\def\authorblockinfo{#1}}
 
 \newcommand{\emaillink}[1]{\texttt{\href{mailto:#1}{#1}}}
 \newcommand{\emailinsert}{\emaillink{\myemail}}
@@ -159,8 +156,8 @@
 \predate{\begin{flushleft}\normalsize}
 \postdate{\end{flushleft}}
 
-\author{\myauthor 					\\
-  			\emph{\myaffiliation}}
+\authorblock{\myauthor          \\
+             \emph{\myaffiliation}}
 
 %% Date
 %% \gitAuthorDate set: set that as the date
@@ -178,8 +175,6 @@
 %% Inserted after \begin{document}
 \AtBeginDocument{
 
-  \addbibresource{\mybibfile}
-
 	%% Metadata in output PDF: title and author
 	\hypersetup{
 		pdftitle = {\thetitle},
@@ -196,8 +191,24 @@
 	
   \newsavebox{\publicationbox}
   \savebox{\publicationbox}{\parbox[t]{.70\textwidth}{\footnotesize \strut \publicationinfo \doiinsert}}
+    
+  %% nstabbing: tabbing with extra vertical space before & after removed
+  %% used for author and affliation layout
+  \newenvironment{nstabbing}
+    {\setlength{\topsep}{0pt}%
+     \setlength{\partopsep}{0pt}%
+     \tabbing}
+    {\endtabbing}
   
-	\maketitle
+  %% Authorbox: author and affliation layout as set by \authorblock{}
+  \newsavebox{\authorbox}
+  \savebox{\authorbox}{\parbox{\textwidth}{
+    \begin{nstabbing} \authorblockinfo \end{nstabbing}}
+  }
+  
+  \author{\vspace{3pt} \usebox{\authorbox} \vspace{1pt}}
+  
+  \maketitle
 	
 	%% \noheaders suppresses running headers
 	\ifdefined\setnoheaders
