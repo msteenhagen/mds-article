@@ -53,6 +53,8 @@ by Mark Sprevak, University of Edinburgh
 
 * `\noheaders`: suppress running headers (useful for short documents)
 
+* `\smallsectiontitles`: use smaller font for section titles (useful for short documents) 
+
 ## Inside `document` environment
 
 * `\signed{...}`: places value flush right, add new line if needed (useful for citations)

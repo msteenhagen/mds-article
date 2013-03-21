@@ -1,4 +1,9 @@
 % TODO push down title if the publication info gets too long
+% TODO add \review{} command
+% TODO turn into a document class
+% TODO move defaults into separate definition file
+% TODO test big, medium, small options for titlesec
+% TODO find out why \emph{} needs to be protected in \title{}
 %%
 %% Article-like preamble
 %%
@@ -8,27 +13,6 @@
 %% README: <https://github.com/msprev/mds-article/README.md>
 %% Most recent version: <https://github.com/msprev/mds-article> 
 %%
-\documentclass[oneside,11pt]{article}
-\usepackage{fixltx2e}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-% \usepackage[a4paper,showframe]{geometry}
-\usepackage[a4paper]{geometry}
-%% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
-\usepackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}
-\usepackage[scaled=0.85]{inconsolata}
-\usepackage{booktabs}
-\usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{enumitem}
-\usepackage{titling}
-\usepackage{gitinfo}
-\usepackage[small,pagestyles]{titlesec}
-\usepackage[british,cleanlook]{isodate}
-\usepackage[british]{babel}
-\usepackage[autostyle]{csquotes}
-\usepackage[babel]{microtype}
-
 %% ==========================================================
 %% Change these defaults as appropriate
 %%
@@ -36,8 +20,41 @@
 \def\myaffiliation{University of Edinburgh}
 \def\myemail{mark.sprevak@ed.ac.uk}
 \def\mybibfile{refs.bib}
+\def\mylocalisation{british}
+\def\mypapersize{a4paper}
+%% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
+\def\loadmainfont{
+  \usepackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}
+}
+\def\loadmonofont{
+  \usepackage[scaled=0.85]{inconsolata}
+}
+\def\myfontsize{11pt}
 %%
 %% ==========================================================
+
+\documentclass[oneside,\myfontsize]{article}
+\usepackage{fixltx2e}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[\mypapersize]{geometry}
+\ifdefined\loadmainfont
+  \loadmainfont
+\fi
+\ifdefined\loadmonofont
+  \loadmonofont
+\fi
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titling}
+\usepackage{gitinfo}
+\usepackage[pagestyles]{titlesec}
+\usepackage[\mylocalisation,cleanlook]{isodate}
+\usepackage[\mylocalisation]{babel}
+\usepackage[autostyle]{csquotes}
+\usepackage[babel]{microtype}
 
 \geometry{
 	top=2.5cm,
@@ -49,8 +66,8 @@
 %% Bibliography: biblatex
 \usepackage[useprefix,authordate,natbib,sortcites,backend=biber]{biblatex-chicago}
 \setlength\bibitemsep{6pt}
-\defbibheading{bibliography}[\refname]{\section{#1}}
-\defbibheading{references}[\refname]{\section{#1}}
+\defbibheading{bibliography}[\refname]{\section*{#1} \sectionmark{#1}}
+\defbibheading{references}[\refname]{\section*{#1} \sectionmark{#1}}
 \addbibresource{\mybibfile}
 
 %% Header: title page
@@ -60,25 +77,18 @@
 %% Left header:		publication info/'Draft only', DOI if \doi{..} set
 \newcommand{\published}[1]{\def\publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\doiinfo{#1}}
-\newcommand{\noheaders}{\def\setnoheaders{true}}
 \newcommand{\email}[1]{\def\myemail{#1}}
 \newcommand{\authorblock}[1]{\def\authorblockinfo{#1}}
+\newcommand{\noheaders}{\def\setnoheaders{true}}
+\newcommand{\smallsectiontitles}{\def\setsmallsectiontitles{true}}
 
+\newcommand{\doilink}[1]{\par\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
 \newcommand{\emaillink}[1]{\texttt{\href{mailto:#1}{#1}}}
 \newcommand{\emailinsert}{\emaillink{\myemail}}
 
 \renewpagestyle{plain}{
 	\setfoot{}{\thepage}{}
-	\ifdefined\publicationinfo
-		\sethead{\usebox{\publicationbox}}
-						{}
-						{\footnotesize \strut \emailinsert}
-	\else
-		\sethead{\footnotesize \strut 
-						 \emph{Draft only. Please do not cite without permission.}}
-						{}
-						{\footnotesize \strut \emailinsert}
- 	\fi
+	\sethead{\usebox{\publicationbox}}{}{\footnotesize \strut \emailinsert}
 }
 
 %% Header: running headers
@@ -149,15 +159,16 @@
   {\signed{\usebox\mybox}\end{quote}}
 
 %% Title, author, and institution
-\pretitle{\par\vskip 3em \begin{flushleft}\LARGE\bfseries}
+\pretitle{\par\vskip 5em \begin{flushleft}\Huge\bfseries}
 \posttitle{\end{flushleft}\par\vskip 0.5em}
-\preauthor{\begin{flushleft}\normalsize\bigskip}
+\preauthor{\begin{flushleft}\normalsize \bigskip}
 \postauthor{\end{flushleft}}
 \predate{\begin{flushleft}\normalsize}
 \postdate{\end{flushleft}}
 
 \authorblock{\myauthor          \\
              \emph{\myaffiliation}}
+\published{\emph{Draft only. Please do not cite without permission.}}
 
 %% Date
 %% \gitAuthorDate set: set that as the date
@@ -170,7 +181,7 @@
 \fi
 
 %% Abstract: plain quote environment
-\renewenvironment{abstract}{\begin{quote}}{\end{quote}}
+\renewenvironment{abstract}{\begin{quote} \small}{\end{quote}}
 
 %% Inserted after \begin{document}
 \AtBeginDocument{
@@ -183,14 +194,15 @@
 
 	%% \doiinsert: formatted DOI link if \doi{} used, blank otherwise
 	\ifdefined\doiinfo
-		\newcommand{\doilink}[1]{\par\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
 		\newcommand{\doiinsert}{\doilink{\doiinfo}}
 	\else
 		\newcommand{\doiinsert}{\relax}
 	\fi
 	
   \newsavebox{\publicationbox}
-  \savebox{\publicationbox}{\parbox[t]{.70\textwidth}{\footnotesize \strut \publicationinfo \doiinsert}}
+  \savebox{\publicationbox}{\parbox[t]{.70\textwidth}{
+    \footnotesize \strut \publicationinfo \doiinsert}
+  }
     
   %% nstabbing: tabbing with extra vertical space before & after removed
   %% used for author and affliation layout
@@ -205,17 +217,17 @@
   \savebox{\authorbox}{\parbox{\textwidth}{
     \begin{nstabbing} \authorblockinfo \end{nstabbing}}
   }
-  
+
   \author{\vspace{3pt} \usebox{\authorbox} \vspace{1pt}}
-  
+
   \maketitle
-	
+
 	%% \noheaders suppresses running headers
 	\ifdefined\setnoheaders
 		\sethead{}{}{}
 		\setheadrule{0pt}
 	\fi
-	
+
 	%% Paragraphs: don't indent first line
 	%% Paragraphs: add small space to separate paragraphs
 	\setlength{\parindent}{0pt}
@@ -224,7 +236,13 @@
 
 %% Inserted before \end{document}
 \AtEndDocument{
-		
+	
+	\ifdefined\setnoheaders
+    \relax
+  \else
+    \sethead{\small \sectiontitle}{}{}
+  \fi
+    
 	%% Bibliography: biblatex
 	\printbibliography
 	
