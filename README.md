@@ -1,9 +1,13 @@
-# Article-like preamble  
+# Article-like class  
 
 by Mark Sprevak, University of Edinburgh  
 
 1. Most recent version: <https://github.com/msprev/mds-article>
 2. Examples of typeset PDFs: <https://sites.google.com/site/msprevak/publications>  
+
+mds-article presents an extremely minimal interface when writing your document.
+
+Configuration of author name, email address, bibliography file, fonts, etc. is through a separate 'definitions' file. The idea is that once this definition file is set and in LaTeX's path, it will be shared between all your documents there is no need to tinker with it. The definitions can be overridden on a per document basis if so desired (e.g., for a multi-authored article), using the commands below.
 
 # Prerequisites
 
@@ -14,10 +18,11 @@ by Mark Sprevak, University of Edinburgh
 
 # Usage
 
-`article-preamble.tex` should be `\input{}` in first line of your `.tex` file, e.g.:
+Use the document class `mds-article`, e.g.:
 
 ```latex
-\input{article-preamble.tex} 
+\documentclass{mds-article}
+
 \title{My article title}
 \published{Forthcoming in the \emph{The Journal}}
 \doi{10.1001/abcd/abc001}
@@ -26,6 +31,10 @@ by Mark Sprevak, University of Edinburgh
 ...
 \end{document}
 ```
+
+# Options
+
+* `short`: suppress running headers and use a smaller font for section titles (useful for short documents)
 
 # Commands
 
@@ -51,9 +60,6 @@ by Mark Sprevak, University of Edinburgh
 }
 ```
 
-* `\noheaders`: suppress running headers (useful for short documents)
-
-* `\smallsectiontitles`: use smaller font for section titles (useful for short documents) 
 
 ## Inside `document` environment
 
@@ -65,6 +71,24 @@ by Mark Sprevak, University of Edinburgh
 \begin{aquote}{\citep{Lewis00}} 
   ... 
 \end{aquote}
+```
+
+# Definitions file
+
+```latex
+\def\myauthor{David Hume}
+\def\myaffiliation{University of Edinburgh}
+\def\myemail{david.hume@ed.ac.uk}
+\def\mybibfile{mylibrary.bib}
+\def\mylocalisation{british}
+\def\mypapersize{a4paper}
+\def\loadmainfont{ 
+  \RequirePackage{MinionPro}
+}
+\def\loadmonofont{
+  \RequirePackage[scaled=0.85]{inconsolata}
+}
+\def\myfontsize{11pt}
 ```
 
 # Acknowledgements
