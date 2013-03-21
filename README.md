@@ -32,11 +32,11 @@ Use the document class `mds-article`:
 \end{document}
 ```
 
-# Document class options
+# mds-article options
 
 * `short`: suppress running headers and use a smaller font for section titles (useful for short documents)
 
-# Document class commands
+# mds-article commands
 
 ## In preamble (before `\begin{document}`)
 
