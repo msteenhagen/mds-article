@@ -1,13 +1,13 @@
-# Article-like class  
+# mds-article: An article-like class  
 
 by Mark Sprevak, University of Edinburgh  
 
-1. Most recent version: <https://github.com/msprev/mds-article>
-2. Examples of typeset PDFs: <https://sites.google.com/site/msprevak/publications>  
+* Most recent version: <https://github.com/msprev/mds-article>
+* Examples of typeset PDFs: <https://sites.google.com/site/msprevak/publications>  
 
 mds-article presents an extremely minimal interface when writing your document.
 
-Configuration of author name, email address, bibliography file, fonts, etc. is through a separate 'definitions' file. The idea is that once this definition file is set and in LaTeX's path, it will be shared between all your documents there is no need to tinker with it. The definitions can be overridden on a per document basis if so desired (e.g., for a multi-authored article), using the commands below.
+Configuration of author name, email address, bibliography file, fonts, etc. is through a separate 'definitions' file. The idea is that once this definition file is set and in LaTeX's path, it will be shared between all your documents there is no need to tinker with it. Definitions can be overridden on a per document basis if needed (e.g., for a multi-authored article), using the commands below.
 
 # Prerequisites
 
@@ -18,7 +18,7 @@ Configuration of author name, email address, bibliography file, fonts, etc. is t
 
 # Usage
 
-Use the document class `mds-article`, e.g.:
+Use the document class `mds-article`:
 
 ```latex
 \documentclass{mds-article}
@@ -32,11 +32,11 @@ Use the document class `mds-article`, e.g.:
 \end{document}
 ```
 
-# Options
+# Document class options
 
 * `short`: suppress running headers and use a smaller font for section titles (useful for short documents)
 
-# Commands
+# Document class commands
 
 ## In preamble (before `\begin{document}`)
 
