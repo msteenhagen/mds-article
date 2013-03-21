@@ -16,7 +16,7 @@
 \ProvidesClass{mds-article}[2013/03/21 mds article-like class]
 
 \DeclareOption{short}{
-  \def\setnoheaders{true}
+  \def\@setnoheaders{true}
   \def\mysectiontitlesize{small}
 }
 \def\mysectiontitlesize{big}
@@ -81,18 +81,18 @@
 %% Center footer:	page number
 %% Right header:	email address
 %% Left header:		publication info/'Draft only', DOI if \doi{..} set
-\newcommand{\published}[1]{\def\publicationinfo{#1}}
-\newcommand{\doi}[1]{\def\doiinfo{#1}}
 \newcommand{\email}[1]{\def\myemail{#1}}
-\newcommand{\authorblock}[1]{\def\authorblockinfo{#1}}
+\newcommand{\published}[1]{\def\@publicationinfo{#1}}
+\newcommand{\doi}[1]{\def\@doiinfo{#1}}
+\newcommand{\authorblock}[1]{\def\@authorblockinfo{#1}}
 
-\newcommand{\doilink}[1]{\par\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
-\newcommand{\emaillink}[1]{\texttt{\href{mailto:#1}{#1}}}
-\newcommand{\emailinsert}{\emaillink{\myemail}}
+\newcommand{\@doilink}[1]{\par\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
+\newcommand{\@emaillink}[1]{\texttt{\href{mailto:#1}{#1}}}
+\newcommand{\@emailinsert}{\@emaillink{\myemail}}
 
 \renewpagestyle{plain}{
 	\setfoot{}{\thepage}{}
-	\sethead{\usebox{\publicationbox}}{}{\footnotesize \strut \emailinsert}
+	\sethead{\usebox{\@publicationbox}}{}{\footnotesize \strut \@emailinsert}
 }
 
 %% Header: running headers
@@ -155,10 +155,10 @@
 
 %% aquote environment: quote with citation flush right, newline when necessary
 %% usage: begin{aquote}{\citep{Lewis00}} ... \end{aquote} 
-\newsavebox\mybox
+\newsavebox\@mybox
 \newenvironment{aquote}[1]
-  {\savebox\mybox{#1}\begin{quote}}
-  {\signed{\usebox\mybox}\end{quote}}
+  {\savebox\@mybox{#1}\begin{quote}}
+  {\signed{\usebox\@mybox}\end{quote}}
 
 %% Title, author, and institution
 \pretitle{\par\vskip 5em \begin{flushleft}\Huge\bfseries}
@@ -194,16 +194,16 @@
 		pdfauthor = {\myauthor}
 	}
 
-	%% \doiinsert: formatted DOI link if \doi{} used, blank otherwise
-	\ifdefined\doiinfo
-		\newcommand{\doiinsert}{\doilink{\doiinfo}}
+	%% \@doiinsert: formatted DOI link if \doi{} used, blank otherwise
+	\ifdefined\@doiinfo
+		\newcommand{\@doiinsert}{\@doilink{\@doiinfo}}
 	\else
-		\newcommand{\doiinsert}{\relax}
+		\newcommand{\@doiinsert}{\relax}
 	\fi
 	
-  \newsavebox{\publicationbox}
-  \savebox{\publicationbox}{\parbox[t]{.70\textwidth}{
-    \footnotesize \strut \publicationinfo \doiinsert}
+  \newsavebox{\@publicationbox}
+  \savebox{\@publicationbox}{\parbox[t]{.70\textwidth}{
+    \footnotesize \strut \@publicationinfo \@doiinsert}
   }
     
   %% nstabbing: tabbing with extra vertical space before & after removed
@@ -215,17 +215,17 @@
     {\endtabbing}
   
   %% Authorbox: author and affliation layout as set by \authorblock{}
-  \newsavebox{\authorbox}
-  \savebox{\authorbox}{\parbox{\textwidth}{
-    \begin{nstabbing} \authorblockinfo \end{nstabbing}}
+  \newsavebox{\@authorbox}
+  \savebox{\@authorbox}{\parbox{\textwidth}{
+    \begin{nstabbing} \@authorblockinfo \end{nstabbing}}
   }
 
-  \author{\vspace{3pt} \usebox{\authorbox} \vspace{1pt}}
+  \author{\vspace{3pt} \usebox{\@authorbox} \vspace{1pt}}
 
   \maketitle
 
 	%% \noheaders suppresses running headers
-	\ifdefined\setnoheaders
+	\ifdefined\@setnoheaders
 		\sethead{}{}{}
 		\setheadrule{0pt}
 	\fi
@@ -239,7 +239,7 @@
 %% Inserted before \end{document}
 \AtEndDocument{
 	
-	\ifdefined\setnoheaders
+	\ifdefined\@setnoheaders
     \relax
   \else
     \sethead{\small \sectiontitle}{}{}
