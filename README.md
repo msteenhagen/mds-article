@@ -1,20 +1,21 @@
-# mds-article: An article-like class  
+# mds-article: A minimalist article class for LaTeX
 
 by Mark Sprevak, University of Edinburgh  
 
 * Most recent version: <https://github.com/msprev/mds-article>
 * Examples of typeset PDFs: <https://sites.google.com/site/msprevak/publications>  
 
-mds-article presents an extremely minimal interface when writing your document.
+mds-article presents an extremely minimal interface for writing your document.
 
-Configuration of author name, email address, bibliography file, fonts, etc. is through a separate 'definitions' file. The idea is that once this definition file is set and in LaTeX's path, it will be shared between all your documents there is no need to tinker with it. Definitions can be overridden on a per document basis if needed (e.g., for a multi-authored article), using the commands below.
+Configuration of author name, email address, bibliography file, fonts, etc. is through a separate 'definitions' file. The idea is that once this definition file is set and in LaTeX's path, it will be shared between all your documents and there is no need to tinker with it. Definitions can be overridden on a per document basis if needed, e.g., for a multi-authored article, using the commands below.
+
+mds-article can be configured via the definition file to use any LaTeX-accessible font. The examples above use [Minion Pro](<http://goo.gl/lQqMy>) and [inconsolata](<http://www.ctan.org/tex-archive/fonts/inconsolata/>).
+
 
 # Prerequisites
 
 1. A modern LaTeX installation
-2. Minion Pro fonts: <http://goo.gl/lQqMy>
-3. Biblatex
-4. The `gitinfo` package
+2. Biblatex
 
 # Usage
 
@@ -74,6 +75,10 @@ Use the document class `mds-article`:
 ```
 
 # Definitions file
+
+The file `mds-article.def` should be in your LaTeX path. If it cannot be found, then mds-article defaults to its internal definitions.
+
+Here is an example `mds-article.def`:
 
 ```latex
 \def\myauthor{David Hume}

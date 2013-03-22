@@ -1,5 +1,6 @@
 % TODO push down title if the publication info gets too long
 % TODO add \review{} command
+% TODO add \bibfile{} command
 % TODO move defaults into separate definition file
 % TODO find out why \emph{} needs to be protected in \title{}
 %%
@@ -13,7 +14,7 @@
 %%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{mds-article}[2013/03/21 mds article-like class]
+\ProvidesClass{mds-article}[2013/03/21 mds-article class]
 
 \DeclareOption{short}{
   \def\@setnoheaders{true}
@@ -32,11 +33,8 @@
 \def\mylocalisation{british}
 \def\mypapersize{a4paper}
 %% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
-\def\loadmainfont{ \RequirePackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}
-}
-\def\loadmonofont{
-  \RequirePackage[scaled=0.85]{inconsolata}
-}
+\def\loadmainfont{\RequirePackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}}
+\def\loadmonofont{\RequirePackage[scaled=0.85]{inconsolata}}
 \def\myfontsize{11pt}
 %%
 %% ==========================================================
