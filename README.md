@@ -53,8 +53,6 @@ Use the document class `mds-article`:
 
 * `\email{...}`: override default email
 
-* `\bibfile{...}`: override default .bib file
-
 * `\authorblock{...}`: override default author & affiliation (useful for multi-authored papers). Value passed is the content of a standard LaTeX `tabbing` environment that specifies the layout of authors & affiliations, e.g.:
 
 ```latex

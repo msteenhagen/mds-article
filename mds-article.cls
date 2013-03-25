@@ -58,6 +58,14 @@
 \RequirePackage[\mylocalisation]{babel}
 \RequirePackage[autostyle]{csquotes}
 \RequirePackage[babel]{microtype}
+%% Bibliography: biblatex
+\RequirePackage[useprefix,authordate,natbib,sortcites,backend=biber]{biblatex-chicago}
+
+\addbibresource{\mybibfile}
+
+\setlength\bibitemsep{6pt}
+\defbibheading{bibliography}[\refname]{\section*{#1} \sectionmark{#1}}
+\defbibheading{references}[\refname]{\section*{#1} \sectionmark{#1}}
 
 \geometry{
 	top=2.5cm,
@@ -65,12 +73,6 @@
 	headheight=3ex,
 	headsep=2.75ex
 }
-
-%% Bibliography: biblatex
-\RequirePackage[useprefix,authordate,natbib,sortcites,backend=biber]{biblatex-chicago}
-\setlength\bibitemsep{6pt}
-\defbibheading{bibliography}[\refname]{\section*{#1} \sectionmark{#1}}
-\defbibheading{references}[\refname]{\section*{#1} \sectionmark{#1}}
 
 %% Header: title page
 %%
@@ -80,7 +82,6 @@
 \newcommand{\email}[1]{\def\myemail{#1}}
 \newcommand{\published}[1]{\def\@publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\@doiinfo{#1}}
-\newcommand{\bibfile}[1]{\def\mybibfile{#1}}
 \newcommand{\authorblock}[1]{\def\@authorblockinfo{#1}}
 
 \newcommand{\@doilink}[1]{\par\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
@@ -184,9 +185,6 @@
 
 %% Inserted after \begin{document}
 \AtBeginDocument{
-
-  %% Bibliography: biblatex
-  \addbibresource{\mybibfile}
 
 	%% Metadata in output PDF: title and author
 	\hypersetup{
