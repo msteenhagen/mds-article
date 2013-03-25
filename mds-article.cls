@@ -1,5 +1,4 @@
 % TODO push down title if the publication info gets too long
-% TODO add \review{} command
 % TODO move defaults into separate definition file
 %%
 %% Article-like class
@@ -37,7 +36,6 @@
 \def\mytitlestyle{\Huge\bfseries}
 %%
 %% ==========================================================
-
 
 
 \LoadClass[oneside,\myfontsize]{article}
@@ -82,6 +80,7 @@
 \newcommand{\email}[1]{\def\myemail{#1}}
 \newcommand{\published}[1]{\def\@publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\@doiinfo{#1}}
+\newcommand{\review}[1]{\def\@reviewinfo{#1}}
 \newcommand{\authorblock}[1]{\def\@authorblockinfo{#1}}
 
 \newcommand{\@doilink}[1]{\par\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
@@ -164,10 +163,10 @@
 \preauthor{\begin{flushleft}\normalsize \bigskip}
 \postauthor{\end{flushleft}}
 \predate{\begin{flushleft}\normalsize}
-\postdate{\end{flushleft}}
+\postdate{\end{flushleft} \@reviewinfoinsert}
 
 \authorblock{\myauthor          \\
-             \emph{\myaffiliation}}
+             \emph{\myaffiliation} \\}
 \published{\emph{Draft only. Please do not cite without permission.}}
 
 %% Date
@@ -183,7 +182,7 @@
 %% Abstract: plain quote environment
 \renewenvironment{abstract}{\begin{quote} \small}{\end{quote}}
 
-%% Inserted after \begin{document}
+%% Inserted before \begin{document}
 \AtBeginDocument{
 
 	%% Metadata in output PDF: title and author
@@ -217,9 +216,19 @@
   \savebox{\@authorbox}{\parbox{\textwidth}{
     \begin{nstabbing} \@authorblockinfo \end{nstabbing}}
   }
-
   \author{\vspace{3pt} \usebox{\@authorbox} \vspace{1pt}}
 
+  %% @reviewinfo: information on the book being reviewed as set by \review{}
+  \ifdefined\@reviewinfo
+    \newcommand{\@reviewinfoinsert}{
+      \vspace{0.5em} 
+      \begin{quote} \footnotesize \@reviewinfo \end{quote} 
+      \vspace{-1em}
+    }
+  \else
+    \newcommand{\@reviewinfoinsert}{\relax}
+  \fi
+  
   \maketitle
 
 	%% \noheaders suppresses running headers

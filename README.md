@@ -51,6 +51,8 @@ Use the document class `mds-article`:
 
 * `\doi{...}`: document DOI
 
+* `\review{...}`: publication info of book reviewed (useful for book reviews)
+
 * `\email{...}`: override default email
 
 * `\authorblock{...}`: override default author & affiliation (useful for multi-authored papers). Value passed is the content of a standard LaTeX `tabbing` environment that specifies the layout of authors & affiliations, e.g.:
