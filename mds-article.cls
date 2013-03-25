@@ -66,17 +66,17 @@
 \defbibheading{references}[\refname]{\section*{#1} \sectionmark{#1}}
 
 \geometry{
-	top=2.5cm,
-	bottom=3.5cm,
-	headheight=3ex,
-	headsep=2.75ex
+  top=2.5cm,
+  bottom=3.5cm,
+  headheight=3ex,
+  headsep=2.75ex
 }
 
 %% Header: title page
 %%
-%% Center footer:	page number
-%% Right header:	email address
-%% Left header:		publication info/'Draft only', DOI if \doi{..} set
+%% Center footer: page number
+%% Right header:  email address
+%% Left header:   publication info/'Draft only', DOI if \doi{..} set
 \newcommand{\email}[1]{\def\myemail{#1}}
 \newcommand{\published}[1]{\def\@publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\@doiinfo{#1}}
@@ -88,19 +88,19 @@
 \newcommand{\@emailinsert}{\@emaillink{\myemail}}
 
 \renewpagestyle{plain}{
-	\setfoot{}{\thepage}{}
-	\sethead{\usebox{\@publicationbox}}{}{\footnotesize \strut \@emailinsert}
+  \setfoot{}{\thepage}{}
+  \sethead{\usebox{\@publicationbox}}{}{\footnotesize \strut \@emailinsert}
 }
 
 %% Header: running headers
 %%
-%% Center footer:	page number
-%% Right header:	subsection title
-%% Left header:		section number and title
+%% Center footer: page number
+%% Right header:  subsection title
+%% Left header:   section number and title
 \newpagestyle{fancy}{
-	\headrule
-	\setfoot{}{\thepage}{}
-	\sethead{\small \thesection \quad \sectiontitle}{}{\small \subsectiontitle}
+  \headrule
+  \setfoot{}{\thepage}{}
+  \sethead{\small \thesection \quad \sectiontitle}{}{\small \subsectiontitle}
 }
 \pagestyle{fancy}
 
@@ -117,20 +117,20 @@
 \definecolor{purple_link}{RGB}{76, 64, 133}
 
 %% Footnotes: stay on the same page
-\interfootnotelinepenalty=10000 	
+\interfootnotelinepenalty=10000   
 
 %% Text can stretch a little into margins to avoid bad line-breaks
 \setlength{\emergencystretch}{3em}  
 
 \RequirePackage[
-	plainpages = false,
-	pdfpagelabels,
-	bookmarksnumbered,
-	pdftex,
-	colorlinks = true,
-	citecolor  = purple_link,
-	linkcolor  = purple_link,
-	urlcolor   = purple_link
+  plainpages = false,
+  pdfpagelabels,
+  bookmarksnumbered,
+  pdftex,
+  colorlinks = true,
+  citecolor  = purple_link,
+  linkcolor  = purple_link,
+  urlcolor   = purple_link
 ]{hyperref}
 
 %% Quote environment: take up less space (copied from savetrees.sty)
@@ -174,9 +174,9 @@
 %% Otherwise: set '(None)' as the date
 %% This is overridden if \date{...} set manually in document
 \ifnum\pdfstrcmp{\gitAuthorDate}{(None)}=0 
-	\date{\gitAuthorDate}
+  \date{\gitAuthorDate}
 \else
-	\date{\printdate{\gitAuthorDate}}
+  \date{\printdate{\gitAuthorDate}}
 \fi
 
 %% Abstract: plain quote environment
@@ -185,19 +185,19 @@
 %% Inserted before \begin{document}
 \AtBeginDocument{
 
-	%% Metadata in output PDF: title and author
-	\hypersetup{
-		pdftitle = {\thetitle},
-		pdfauthor = {\myauthor}
-	}
+  %% Metadata in output PDF: title and author
+  \hypersetup{
+    pdftitle = {\thetitle},
+    pdfauthor = {\myauthor}
+  }
 
-	%% \@doiinsert: formatted DOI link if \doi{} used, blank otherwise
-	\ifdefined\@doiinfo
-		\newcommand{\@doiinsert}{\@doilink{\@doiinfo}}
-	\else
-		\newcommand{\@doiinsert}{\relax}
-	\fi
-	
+  %% \@doiinsert: formatted DOI link if \doi{} used, blank otherwise
+  \ifdefined\@doiinfo
+    \newcommand{\@doiinsert}{\@doilink{\@doiinfo}}
+  \else
+    \newcommand{\@doiinsert}{\relax}
+  \fi
+  
   \newsavebox{\@publicationbox}
   \savebox{\@publicationbox}{\parbox[t]{.70\textwidth}{
     \footnotesize \strut \@publicationinfo \@doiinsert}
@@ -231,35 +231,35 @@
   
   \maketitle
 
-	%% \noheaders suppresses running headers
-	\ifdefined\@setnoheaders
-		\sethead{}{}{}
-		\setheadrule{0pt}
-	\fi
+  %% \noheaders suppresses running headers
+  \ifdefined\@setnoheaders
+    \sethead{}{}{}
+    \setheadrule{0pt}
+  \fi
 
-	%% Paragraphs: don't indent first line
-	%% Paragraphs: add small space to separate paragraphs
-	\setlength{\parindent}{0pt}
-	\setlength{\parskip}{6pt plus 2pt minus 1pt}
+  %% Paragraphs: don't indent first line
+  %% Paragraphs: add small space to separate paragraphs
+  \setlength{\parindent}{0pt}
+  \setlength{\parskip}{6pt plus 2pt minus 1pt}
 }
 
 %% Inserted before \end{document}
 \AtEndDocument{
-	
-	\ifdefined\@setnoheaders
+  
+  \ifdefined\@setnoheaders
     \relax
   \else
     \sethead{\small \sectiontitle}{}{}
   \fi
     
-	%% Bibliography: biblatex
-	\printbibliography
-	
-	%% Git date and commit hash: print if set, otherwise do nothing
-	\ifnum\pdfstrcmp{\gitAuthorDate}{(None)}=0 
-		\relax 
-	\else
-		\flushright{\sffamily \scriptsize \gitAbbrevHash\ on \gitAuthorDate}
-	\fi
-	
+  %% Bibliography: biblatex
+  \printbibliography
+  
+  %% Git date and commit hash: print if set, otherwise do nothing
+  \ifnum\pdfstrcmp{\gitAuthorDate}{(None)}=0 
+    \relax 
+  \else
+    \flushright{\sffamily \scriptsize \gitAbbrevHash\ on \gitAuthorDate}
+  \fi
+  
 }
