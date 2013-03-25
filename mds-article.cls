@@ -1,8 +1,6 @@
 % TODO push down title if the publication info gets too long
 % TODO add \review{} command
-% TODO add \bibfile{} command
 % TODO move defaults into separate definition file
-% TODO find out why \emph{} needs to be protected in \title{}
 %%
 %% Article-like class
 %%
@@ -36,6 +34,7 @@
 \def\loadmainfont{\RequirePackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}}
 \def\loadmonofont{\RequirePackage[scaled=0.85]{inconsolata}}
 \def\myfontsize{11pt}
+\def\mytitlestyle{\Huge\bfseries}
 %%
 %% ==========================================================
 
@@ -72,7 +71,6 @@
 \setlength\bibitemsep{6pt}
 \defbibheading{bibliography}[\refname]{\section*{#1} \sectionmark{#1}}
 \defbibheading{references}[\refname]{\section*{#1} \sectionmark{#1}}
-\addbibresource{\mybibfile}
 
 %% Header: title page
 %%
@@ -82,6 +80,7 @@
 \newcommand{\email}[1]{\def\myemail{#1}}
 \newcommand{\published}[1]{\def\@publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\@doiinfo{#1}}
+\newcommand{\bibfile}[1]{\def\mybibfile{#1}}
 \newcommand{\authorblock}[1]{\def\@authorblockinfo{#1}}
 
 \newcommand{\@doilink}[1]{\par\texttt{\href{http://dx.doi.org/#1}{doi:#1}}}
@@ -159,7 +158,7 @@
   {\signed{\usebox\@mybox}\end{quote}}
 
 %% Title, author, and institution
-\pretitle{\par\vskip 5em \begin{flushleft}\Huge\bfseries}
+\pretitle{\par\vskip 5em \begin{flushleft}\mytitlestyle}
 \posttitle{\end{flushleft}\par\vskip 0.5em}
 \preauthor{\begin{flushleft}\normalsize \bigskip}
 \postauthor{\end{flushleft}}
@@ -185,6 +184,9 @@
 
 %% Inserted after \begin{document}
 \AtBeginDocument{
+
+  %% Bibliography: biblatex
+  \addbibresource{\mybibfile}
 
 	%% Metadata in output PDF: title and author
 	\hypersetup{

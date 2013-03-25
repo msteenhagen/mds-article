@@ -1,4 +1,4 @@
-# mds-article: A minimalist article class for LaTeX
+# mds-article: A minimal article class
 
 by Mark Sprevak, University of Edinburgh  
 
@@ -7,7 +7,7 @@ by Mark Sprevak, University of Edinburgh
 
 mds-article presents an extremely minimal interface for writing your document.
 
-Configuration of author name, email address, bibliography file, fonts, etc. is through a separate 'definitions' file. The idea is that once this definition file is set and in LaTeX's path, it will be shared between all your documents and there is no need to tinker with it. Definitions can be overridden on a per document basis if needed, e.g., for a multi-authored article, using the commands below.
+Configuration of author name, email address, bibliography file, fonts, etc. is through a separate 'definitions' file. The intention is that once this definition file is set and in LaTeX's path, it will be shared between all your documents and there is no need to tinker with it. Definitions can be overridden on a per document basis if needed, e.g., for a multi-authored article, using the commands below.
 
 mds-article can be configured via the definition file to use any LaTeX-accessible font. The examples above use [Minion Pro](<http://goo.gl/lQqMy>) and [inconsolata](<http://www.ctan.org/tex-archive/fonts/inconsolata/>).
 
@@ -16,6 +16,7 @@ mds-article can be configured via the definition file to use any LaTeX-accessibl
 
 1. A modern LaTeX installation
 2. Biblatex
+
 
 # Usage
 
@@ -37,6 +38,7 @@ Use the document class `mds-article`:
 
 * `short`: suppress running headers and use a smaller font for section titles (useful for short documents)
 
+
 # Commands
 
 ## In preamble (before `\begin{document}`)
@@ -51,6 +53,8 @@ Use the document class `mds-article`:
 
 * `\email{...}`: override default email
 
+* `\bibfile{...}`: override default .bib file
+
 * `\authorblock{...}`: override default author & affiliation (useful for multi-authored papers). Value passed is the content of a standard LaTeX `tabbing` environment that specifies the layout of authors & affiliations, e.g.:
 
 ```latex
@@ -60,7 +64,6 @@ Use the document class `mds-article`:
   \emph{University of Edinburgh}  \> \emph{University of Cambridge}       \> \emph{University of Oxford}
 }
 ```
-
 
 ## Inside `document` environment
 
@@ -74,27 +77,27 @@ Use the document class `mds-article`:
 \end{aquote}
 ```
 
+
 # Definitions file
 
 The file `mds-article.def` should be in your LaTeX path. If it cannot be found, then mds-article defaults to its internal definitions.
 
-Here is an example `mds-article.def`:
+Here is my `mds-article.def`:
 
 ```latex
-\def\myauthor{David Hume}
+\def\myauthor{Mark Sprevak}
 \def\myaffiliation{University of Edinburgh}
-\def\myemail{david.hume@ed.ac.uk}
-\def\mybibfile{mylibrary.bib}
+\def\myemail{mark.sprevak@ed.ac.uk}
+\def\mybibfile{refs.bib}
 \def\mylocalisation{british}
 \def\mypapersize{a4paper}
-\def\loadmainfont{ 
-  \RequirePackage{MinionPro}
-}
-\def\loadmonofont{
-  \RequirePackage[scaled=0.85]{inconsolata}
-}
+%% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
+\def\loadmainfont{\RequirePackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}}
+\def\loadmonofont{\RequirePackage[scaled=0.85]{inconsolata}}
 \def\myfontsize{11pt}
+\def\mytitlestyle{\Huge\bfseries}
 ```
+
 
 # Acknowledgements
 
