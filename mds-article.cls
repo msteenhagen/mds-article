@@ -1,5 +1,5 @@
-% TODO push down title if the publication info gets too long
 % TODO move defaults into separate definition file
+% TODO push down title if the publication info gets too long
 %%
 %% Article-like class
 %%
@@ -72,11 +72,13 @@
   headsep=2.75ex
 }
 
-%% Header: title page
+%% Title page
 %%
 %% Center footer: page number
 %% Right header:  email address
 %% Left header:   publication info/'Draft only', DOI if \doi{..} set
+%% \review:       set book review info below title, author, date
+%% \authorblock:  set author & affliations
 \newcommand{\email}[1]{\def\myemail{#1}}
 \newcommand{\published}[1]{\def\@publicationinfo{#1}}
 \newcommand{\doi}[1]{\def\@doiinfo{#1}}
@@ -104,23 +106,18 @@
 }
 \pagestyle{fancy}
 
-%% Description labels: bold, small caps, and enforced lowercase
-%% Description: move to next line if label is too long
-\renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{\textbf{\MakeLowercase{#1}}}}
-\setlist[description]{style=nextline}
-
 %% Section titles: sub-subsection headings italic
 \titleformat{\subsubsection}
 {\itshape\normalsize}{\thesubsubsection}{1em}{}
 
-%% Dark purple for hyperlinks
-\definecolor{purple_link}{RGB}{76, 64, 133}
+%% Text can stretch a little into margins to avoid bad line-breaks
+\setlength{\emergencystretch}{3em}  
 
 %% Footnotes: stay on the same page
 \interfootnotelinepenalty=10000   
 
-%% Text can stretch a little into margins to avoid bad line-breaks
-\setlength{\emergencystretch}{3em}  
+%% Dark purple for hyperlinks
+\definecolor{purple_link}{RGB}{76, 64, 133}
 
 \RequirePackage[
   plainpages = false,
@@ -132,6 +129,11 @@
   linkcolor  = purple_link,
   urlcolor   = purple_link
 ]{hyperref}
+
+%% Description labels: bold, small caps, and enforced lowercase
+%% Description: move to next line if label is too long
+\renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{\textbf{\MakeLowercase{#1}}}}
+\setlist[description]{style=nextline}
 
 %% Quote environment: take up less space (copied from savetrees.sty)
 \renewenvironment{quote}
@@ -157,6 +159,14 @@
   {\savebox\@mybox{#1}\begin{quote}}
   {\signed{\usebox\@mybox}\end{quote}}
 
+%% nstabbing: tabbing with extra vertical space before & after removed
+%% used for author and affliation layout
+\newenvironment{nstabbing}
+  {\setlength{\topsep}{0pt}%
+   \setlength{\partopsep}{0pt}%
+   \tabbing}
+  {\endtabbing}
+
 %% Title, author, and institution
 \pretitle{\par\vskip 5em \begin{flushleft}\mytitlestyle}
 \posttitle{\end{flushleft}\par\vskip 0.5em}
@@ -165,8 +175,8 @@
 \predate{\begin{flushleft}\normalsize}
 \postdate{\end{flushleft} \@reviewinfoinsert}
 
-\authorblock{\myauthor          \\
-             \emph{\myaffiliation} \\}
+\authorblock{\myauthor \\
+             \emph{\myaffiliation}}
 \published{\emph{Draft only. Please do not cite without permission.}}
 
 %% Date
@@ -191,34 +201,27 @@
     pdfauthor = {\myauthor}
   }
 
-  %% \@doiinsert: formatted DOI link if \doi{} used, blank otherwise
+  %% \@doiinsert: formatted DOI link as set by \doi{}
   \ifdefined\@doiinfo
     \newcommand{\@doiinsert}{\@doilink{\@doiinfo}}
   \else
     \newcommand{\@doiinsert}{\relax}
   \fi
   
+  %% \@publicationbox: publication info layout as set by \published{}
   \newsavebox{\@publicationbox}
   \savebox{\@publicationbox}{\parbox[t]{.70\textwidth}{
     \footnotesize \strut \@publicationinfo \@doiinsert}
   }
-    
-  %% nstabbing: tabbing with extra vertical space before & after removed
-  %% used for author and affliation layout
-  \newenvironment{nstabbing}
-    {\setlength{\topsep}{0pt}%
-     \setlength{\partopsep}{0pt}%
-     \tabbing}
-    {\endtabbing}
-  
-  %% Authorbox: author and affliation layout as set by \authorblock{}
+      
+  %% \@authorbox: author & affliation layout as set by \authorblock{}
   \newsavebox{\@authorbox}
   \savebox{\@authorbox}{\parbox{\textwidth}{
     \begin{nstabbing} \@authorblockinfo \end{nstabbing}}
   }
   \author{\vspace{3pt} \usebox{\@authorbox} \vspace{1pt}}
 
-  %% @reviewinfo: information on the book being reviewed as set by \review{}
+  %% \@reviewinfo: information on the book being reviewed as set by \review{}
   \ifdefined\@reviewinfo
     \newcommand{\@reviewinfoinsert}{
       \vspace{0.5em} 
@@ -231,12 +234,13 @@
   
   \maketitle
 
-  %% \noheaders suppresses running headers
+  %% [short] option suppresses running headers
   \ifdefined\@setnoheaders
     \sethead{}{}{}
     \setheadrule{0pt}
   \fi
 
+  %% Typesetting defaults for rest of document
   %% Paragraphs: don't indent first line
   %% Paragraphs: add small space to separate paragraphs
   \setlength{\parindent}{0pt}
@@ -246,6 +250,7 @@
 %% Inserted before \end{document}
 \AtEndDocument{
   
+  %% [short] option suppresses running headers
   \ifdefined\@setnoheaders
     \relax
   \else
