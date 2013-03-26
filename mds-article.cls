@@ -41,7 +41,7 @@
 \RequirePackage{fixltx2e}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[\mypapersize]{geometry}
+\RequirePackage[\mypapersize,showframe]{geometry}
 \ifdefined\loadmainfont   \loadmainfont   \fi
 \ifdefined\loadmonofont   \loadmonofont   \fi
 \RequirePackage{booktabs}
@@ -110,10 +110,10 @@
 {\itshape\normalsize}{\thesubsubsection}{1em}{}
 
 %% Text can stretch a little into margins to avoid bad line-breaks
-\setlength{\emergencystretch}{3em}  
+\setlength{\emergencystretch}{3em}
 
 %% Footnotes: stay on the same page
-\interfootnotelinepenalty=10000   
+\interfootnotelinepenalty=10000
 
 %% Dark purple for hyperlinks
 \definecolor{purple_link}{RGB}{76, 64, 133}
@@ -136,11 +136,11 @@
 
 %% Quote environment: take up less space (copied from savetrees.sty)
 \renewenvironment{quote}
-               {\list{}{\listparindent=0pt%whatever you need
+               {\list{}{\listparindent=0pt%
                         \itemindent    \listparindent
-                        \leftmargin=2em%  whatever you need
-                        \rightmargin=2em%whatever you need
-                        \topsep=0pt%%%%%  whatever you need
+                        \leftmargin=2em%
+                        \rightmargin=2em%
+                        \topsep=0pt%
                         \parsep        \z@ \@plus\p@}%
                 \item\relax}
                {\endlist}
@@ -167,14 +167,14 @@
   {\endtabbing}
 
 %% Title, author, and institution
-\pretitle{\par\vskip \@pretitlespace \begin{flushleft}\mytitlestyle}
+\pretitle{\par\vskip\@pretitlespace\begin{flushleft}\mytitlestyle}
 \posttitle{\end{flushleft}\par\vskip 0.5em}
-\preauthor{\begin{flushleft}\normalsize \bigskip}
+\preauthor{\begin{flushleft}\normalsize\bigskip}
 \postauthor{\end{flushleft}}
 \predate{\begin{flushleft}\normalsize}
-\postdate{\end{flushleft} \@reviewinfoinsert}
+\postdate{\end{flushleft}\@reviewinfoinsert}
 
-\authorblock{\myauthor \\
+\authorblock{\myauthor\\
              \emph{\myaffiliation}}
 \published{\emph{Draft only. Please do not cite without permission.}}
 
@@ -189,7 +189,7 @@
 \fi
 
 %% Abstract: plain quote environment
-\renewenvironment{abstract}{\begin{quote} \small}{\end{quote}}
+\renewenvironment{abstract}{\begin{quote}\small}{\end{quote}}
 
 %% Inserted before \begin{document}
 \AtBeginDocument{
@@ -209,37 +209,37 @@
   
   %% \@emailbox: email info layout as set by \myemail
   \newsavebox{\@emailbox}
-  \savebox{\@emailbox}{\parbox[t]{.3\textwidth}{
-    \footnotesize \strut \hfill \@emailinsert}
+  \savebox{\@emailbox}{\parbox[t]{.3\textwidth}{%
+    \footnotesize \strut \hfill \@emailinsert}%
   }
   
   %% \@publicationbox: publication info layout as set by \published{}
   \newsavebox{\@publicationbox}
-  \savebox{\@publicationbox}{\parbox[t]{.7\textwidth}{
-    \footnotesize \strut \@publicationinfo \@doiinsert}
+  \savebox{\@publicationbox}{\parbox[t]{.7\textwidth}{%
+    \footnotesize \strut \@publicationinfo \@doiinsert}%
   }
 
   %% \@pretitlespace defaults is 5em, but extra space is added
   %% if \@publicationbox is taller than 3 lines 
   \newlength{\@pretitlespace}  \setlength{\@pretitlespace}{5em}
   \newlength{\@displacement}
-  \setlength{\@displacement}{
-    \maxof{\ht\@publicationbox + \dp\@publicationbox - 3 \baselineskip}{0pt}
+  \setlength{\@displacement}{%
+    \maxof{\ht\@publicationbox + \dp\@publicationbox - 3 \baselineskip}{0pt}%
   }
   \addtolength{\@pretitlespace}{\@displacement}
-          
+
   %% \@authorbox: author & affliation layout as set by \authorblock{}
   \newsavebox{\@authorbox}
-  \savebox{\@authorbox}{\parbox{\textwidth}{
-    \begin{nstabbing} \@authorblockinfo \end{nstabbing}}
+  \savebox{\@authorbox}{\parbox{\textwidth}{%
+    \begin{nstabbing} \@authorblockinfo \end{nstabbing}}%
   }
   \author{\vspace{3pt} \usebox{\@authorbox} \vspace{1pt}}
 
   %% \@reviewinfo: information on the book being reviewed as set by \review{}
   \ifdefined\@reviewinfo
     \newcommand{\@reviewinfoinsert}{
-      \vspace{0.5em} 
-      \begin{quote} \footnotesize \@reviewinfo \end{quote} 
+      \vspace{0.5em}
+      \begin{quote} \footnotesize \@reviewinfo \end{quote}
       \vspace{-1em}
     }
   \else
