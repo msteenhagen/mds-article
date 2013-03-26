@@ -1,5 +1,4 @@
 % TODO move defaults into separate definition file
-% TODO surround email address in parbox
 %%
 %% Article-like class
 %%
@@ -91,7 +90,7 @@
 
 \renewpagestyle{plain}{
   \setfoot{}{\thepage}{}
-  \sethead{\usebox{\@publicationbox}}{}{\footnotesize \strut \@emailinsert}
+  \sethead{\usebox{\@publicationbox}}{}{\usebox{\@emailbox}}
 }
 
 %% Header: running headers
@@ -208,9 +207,15 @@
     \newcommand{\@doiinsert}{\relax}
   \fi
   
+  %% \@emailbox: email info layout as set by \myemail
+  \newsavebox{\@emailbox}
+  \savebox{\@emailbox}{\parbox[t]{.3\textwidth}{
+    \footnotesize \strut \hfill \@emailinsert}
+  }
+  
   %% \@publicationbox: publication info layout as set by \published{}
   \newsavebox{\@publicationbox}
-  \savebox{\@publicationbox}{\parbox[t]{.70\textwidth}{
+  \savebox{\@publicationbox}{\parbox[t]{.7\textwidth}{
     \footnotesize \strut \@publicationinfo \@doiinsert}
   }
 
