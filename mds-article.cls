@@ -1,5 +1,4 @@
 % TODO move defaults into separate definition file
-% TODO push down title if the publication info gets too long
 %%
 %% Article-like class
 %%
@@ -48,6 +47,7 @@
 \RequirePackage{booktabs}
 \RequirePackage{graphicx}
 \RequirePackage{xcolor}
+\RequirePackage{calc}
 \RequirePackage{enumitem}
 \RequirePackage{titling}
 \RequirePackage{gitinfo}
@@ -56,11 +56,10 @@
 \RequirePackage[\mylocalisation]{babel}
 \RequirePackage[autostyle]{csquotes}
 \RequirePackage[babel]{microtype}
+
 %% Bibliography: biblatex
 \RequirePackage[useprefix,authordate,natbib,sortcites,backend=biber]{biblatex-chicago}
-
 \addbibresource{\mybibfile}
-
 \setlength\bibitemsep{6pt}
 \defbibheading{bibliography}[\refname]{\section*{#1} \sectionmark{#1}}
 \defbibheading{references}[\refname]{\section*{#1} \sectionmark{#1}}
@@ -168,7 +167,7 @@
   {\endtabbing}
 
 %% Title, author, and institution
-\pretitle{\par\vskip 5em \begin{flushleft}\mytitlestyle}
+\pretitle{\par\vskip \@pretitlespace \begin{flushleft}\mytitlestyle}
 \posttitle{\end{flushleft}\par\vskip 0.5em}
 \preauthor{\begin{flushleft}\normalsize \bigskip}
 \postauthor{\end{flushleft}}
@@ -213,7 +212,16 @@
   \savebox{\@publicationbox}{\parbox[t]{.70\textwidth}{
     \footnotesize \strut \@publicationinfo \@doiinsert}
   }
-      
+
+  %% \@pretitlespace defaults is 5em, but extra space is added
+  %% if \@publicationbox is taller than 3 lines 
+  \newlength{\@pretitlespace}  \setlength{\@pretitlespace}{5em}
+  \newlength{\@displacement}
+  \setlength{\@displacement}{
+    \maxof{\ht\@publicationbox + \dp\@publicationbox - 3 \baselineskip}{0pt}
+  }
+  \addtolength{\@pretitlespace}{\@displacement}
+          
   %% \@authorbox: author & affliation layout as set by \authorblock{}
   \newsavebox{\@authorbox}
   \savebox{\@authorbox}{\parbox{\textwidth}{
@@ -232,7 +240,7 @@
     \newcommand{\@reviewinfoinsert}{\relax}
   \fi
   
-  \maketitle
+  \maketitle  
 
   %% [short] option suppresses running headers
   \ifdefined\@setnoheaders
