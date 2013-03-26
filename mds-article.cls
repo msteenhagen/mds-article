@@ -1,4 +1,5 @@
 % TODO move defaults into separate definition file
+% TODO surround email address in parbox
 %%
 %% Article-like class
 %%

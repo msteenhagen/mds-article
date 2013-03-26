@@ -18,6 +18,14 @@ mds-article can be configured via the definition file to use any LaTeX-accessibl
 2. Biblatex
 
 
+# Installation
+
+1. Place `mds-article.cls` and `mds-article.def` in your LaTeX path.
+
+2. Run `sudo texhash`
+
+If you are using MacTeX, I suggest placing these files---or better, cloning this repository---in `~/Library/texmf/tex/latex/mds-latex/`.
+
 # Usage
 
 Use the document class `mds-article`:
@@ -51,7 +59,7 @@ Use the document class `mds-article`:
 
 * `\doi{...}`: document DOI
 
-* `\review{...}`: publication info of book reviewed (useful for book reviews)
+* `\review{...}`: publication info of book being reviewed (useful for book reviews)
 
 * `\email{...}`: override default email
 
@@ -69,7 +77,7 @@ Use the document class `mds-article`:
 
 * `\signed{...}`: places value flush right, add new line if needed (useful for citations)
 
-* `aquote` environment: a modified `quote` environment that places its argument flush right, a new line added if needed, e.g.:  
+* `aquote` environment: a modified `quote` environment that places the first value flush right, a new line added if needed, after a standard `quote` environment e.g.:  
 
 ```latex
 \begin{aquote}{\citep{Lewis00}} 
