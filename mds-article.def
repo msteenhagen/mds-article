@@ -1,0 +1,16 @@
+%% ==========================================================
+%% Change these defaults as appropriate
+%%
+\def\myauthor{Mark Sprevak}
+\def\myaffiliation{University of Edinburgh}
+\def\myemail{mark.sprevak@ed.ac.uk}
+\def\mybibfile{refs.bib}
+\def\mylocalisation{british}
+\def\mypapersize{a4paper}
+%% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
+\def\loadmainfont{\RequirePackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}}
+\def\loadmonofont{\RequirePackage[scaled=0.85]{inconsolata}}
+\def\myfontsize{11pt}
+\def\mytitlestyle{\Huge\bfseries}
+%%
+%% ==========================================================

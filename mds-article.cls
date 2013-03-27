@@ -1,5 +1,3 @@
-% TODO move defaults into separate definition file
-%%
 %% Article-like class
 %%
 %% by Mark Sprevak, University of Edinburgh
@@ -18,30 +16,26 @@
 }
 \def\mysectiontitlesize{big}
 \ProcessOptions\relax
-   
-%% ==========================================================
-%% Change these defaults as appropriate
-%%
-\def\myauthor{Mark Sprevak}
-\def\myaffiliation{University of Edinburgh}
-\def\myemail{mark.sprevak@ed.ac.uk}
-\def\mybibfile{refs.bib}
-\def\mylocalisation{british}
-\def\mypapersize{a4paper}
-%% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
-\def\loadmainfont{\RequirePackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}}
-\def\loadmonofont{\RequirePackage[scaled=0.85]{inconsolata}}
-\def\myfontsize{11pt}
-\def\mytitlestyle{\Huge\bfseries}
-%%
-%% ==========================================================
 
+%% mds-article.def: Load definitions file
+%% If mds-article.def cannot be found use the default definition below
+\InputIfFileExists{mds-article.def}{\relax}{
+  \ClassWarningNoLine{mds-article}{mds-article.def not found, reverting to class default definitions}
+  \def\myauthor{David Hume}
+  \def\myaffiliation{University of Edinburgh}
+  \def\myemail{david.hume@ed.ac.uk}
+  \def\mybibfile{}
+  \def\mylocalisation{british}
+  \def\mypapersize{a4paper}
+  \def\myfontsize{10pt}
+  \def\mytitlestyle{\Huge\bfseries}
+}
 
 \LoadClass[oneside,\myfontsize]{article}
 \RequirePackage{fixltx2e}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[\mypapersize,showframe]{geometry}
+\RequirePackage[\mypapersize]{geometry}
 \ifdefined\loadmainfont   \loadmainfont   \fi
 \ifdefined\loadmonofont   \loadmonofont   \fi
 \RequirePackage{booktabs}
@@ -206,8 +200,8 @@
   \else
     \newcommand{\@doiinsert}{\relax}
   \fi
-  
-  %% \@emailbox: email info layout as set by \myemail
+
+  %% \@emailbox: email info layout as set by \email{} and \myemail
   \newsavebox{\@emailbox}
   \savebox{\@emailbox}{\parbox[t]{.3\textwidth}{%
     \footnotesize \strut \hfill \@emailinsert}%
@@ -246,7 +240,7 @@
     \newcommand{\@reviewinfoinsert}{\relax}
   \fi
   
-  \maketitle  
+  \maketitle
 
   %% [short] option suppresses running headers
   \ifdefined\@setnoheaders
