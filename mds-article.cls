@@ -129,8 +129,15 @@
 \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{\textbf{\MakeLowercase{#1}}}}
 \setlist[description]{style=nextline}
 
-%% minimalquote environment: quote with less space (copied from savetrees.sty)
-\newenvironment{minimalquote}
+%% \signed{...}: flush right, newline when necessary
+%% usage: \signed{\citep{Lewis00}} 
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil#1%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+%% nsquote environment: quote with less space (copied from savetrees.sty)
+%% used for abstract and review layout
+\newenvironment{nsquote}
                {\list{}{\listparindent=0pt%
                         \itemindent    \listparindent
                         \leftmargin=2em%
@@ -140,13 +147,7 @@
                 \item\relax}
                {\endlist}
 
-%% \signed{...}: flush right, newline when necessary
-%% usage: \signed{\citep{Lewis00}} 
-\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
-  \hbox{}\nobreak\hfil#1%
-  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
-
-%% nstabbing: tabbing with extra vertical space before & after removed
+%% nstabbing: tabbing with no vertical space before & after
 %% used for author and affliation layout
 \newenvironment{nstabbing}
   {\setlength{\topsep}{0pt}%
@@ -177,7 +178,7 @@
 \fi
 
 %% Abstract: minimal quote environment
-\renewenvironment{abstract}{\begin{minimalquote}\small}{\end{minimalquote}}
+\renewenvironment{abstract}{\begin{nsquote}\small}{\end{nsquote}}
 
 %% Inserted before \begin{document}
 \AtBeginDocument{
@@ -227,7 +228,7 @@
   \ifdefined\@reviewinfo
     \newcommand{\@reviewinfoinsert}{
       \vspace{0.5em}
-      \begin{minimalquote} \footnotesize \@reviewinfo \end{minimalquote}
+      \begin{nsquote} \footnotesize \@reviewinfo \end{nsquote}
       \vspace{-1em}
     }
   \else
