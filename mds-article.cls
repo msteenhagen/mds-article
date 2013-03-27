@@ -63,7 +63,7 @@
   top=2.5cm,
   bottom=3.5cm,
   headheight=3ex,
-  headsep=2.75ex
+  headsep=3ex
 }
 
 %% Title page
@@ -139,7 +139,7 @@
 %% used for abstract and review layout
 \newenvironment{nsquote}
                {\list{}{\listparindent=0pt%
-                        \itemindent    \listparindent
+                        \itemindent    \listparindent%
                         \leftmargin=2em%
                         \rightmargin=2em%
                         \topsep=0pt%
