@@ -10,7 +10,7 @@
 %% MinionPro: remove `opticals` and `fullfamily` if you don't have full font
 \def\loadmainfont{\RequirePackage[opticals,fullfamily,mathlf,minionint,footnotefigures]{MinionPro}}
 \def\loadmonofont{\RequirePackage[scaled=0.85]{inconsolata}}
-\def\myfontsize{11pt}
+\def\myfontsize{12pt}
 \def\mytitlestyle{\Huge\bfseries}
 %%
 %% ==========================================================

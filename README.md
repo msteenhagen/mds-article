@@ -77,8 +77,6 @@ Use the document class `mds-article`:
 
 * `\signed{...}`: places value flush right, add new line if needed (useful for citations)
 
-* `aquote` environment: a modified `quote` environment that places the first value flush right, a new line added if needed, after a standard `quote` environment e.g.:  
-
 ```latex
 \begin{aquote}{\citep{Lewis00}} 
   ... 

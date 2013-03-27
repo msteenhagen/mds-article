@@ -1,3 +1,4 @@
+% TODO pass font size as option
 %% Article-like class
 %%
 %% by Mark Sprevak, University of Edinburgh
@@ -128,8 +129,8 @@
 \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{\textbf{\MakeLowercase{#1}}}}
 \setlist[description]{style=nextline}
 
-%% Quote environment: take up less space (copied from savetrees.sty)
-\renewenvironment{quote}
+%% minimalquote environment: quote with less space (copied from savetrees.sty)
+\newenvironment{minimalquote}
                {\list{}{\listparindent=0pt%
                         \itemindent    \listparindent
                         \leftmargin=2em%
@@ -144,13 +145,6 @@
 \def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
   \hbox{}\nobreak\hfil#1%
   \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
-
-%% aquote environment: quote with citation flush right, newline when necessary
-%% usage: begin{aquote}{\citep{Lewis00}} ... \end{aquote} 
-\newsavebox\@mybox
-\newenvironment{aquote}[1]
-  {\savebox\@mybox{#1}\begin{quote}}
-  {\signed{\usebox\@mybox}\end{quote}}
 
 %% nstabbing: tabbing with extra vertical space before & after removed
 %% used for author and affliation layout
@@ -182,8 +176,8 @@
   \date{\printdate{\gitAuthorDate}}
 \fi
 
-%% Abstract: plain quote environment
-\renewenvironment{abstract}{\begin{quote}\small}{\end{quote}}
+%% Abstract: minimal quote environment
+\renewenvironment{abstract}{\begin{minimalquote}\small}{\end{minimalquote}}
 
 %% Inserted before \begin{document}
 \AtBeginDocument{
@@ -233,7 +227,7 @@
   \ifdefined\@reviewinfo
     \newcommand{\@reviewinfoinsert}{
       \vspace{0.5em}
-      \begin{quote} \footnotesize \@reviewinfo \end{quote}
+      \begin{minimalquote} \footnotesize \@reviewinfo \end{minimalquote}
       \vspace{-1em}
     }
   \else
