@@ -1,0 +1,6 @@
+*
+!.gitignore
+!README.md
+!mds-article.cls
+!mds-article.def
+!example.tex
