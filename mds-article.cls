@@ -133,6 +133,9 @@
   \hbox{}\nobreak\hfil#1%
   \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
 
+%% \thesis{...}: typeset as the name of a claim, in small caps
+\newcommand{\thesis}[1]{\mbox{\textsc{\MakeLowercase{#1}}}}
+
 %% nsquote environment: quote with less space (copied from savetrees.sty)
 %% used for abstract and review layout
 \newenvironment{nsquote}
