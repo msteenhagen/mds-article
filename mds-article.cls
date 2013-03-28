@@ -13,9 +13,7 @@
 
 \DeclareOption{short}{
   \def\@setnoheaders{true}
-  \def\mysectiontitlesize{small}
 }
-\def\mysectiontitlesize{big}
 \ProcessOptions\relax
 
 %% mds-article.def: Load definitions file
@@ -46,7 +44,7 @@
 \RequirePackage{enumitem}
 \RequirePackage{titling}
 \RequirePackage{gitinfo}
-\RequirePackage[\mysectiontitlesize,pagestyles]{titlesec}
+\RequirePackage[small,pagestyles]{titlesec}
 \RequirePackage[\mylocalisation,cleanlook]{isodate}
 \RequirePackage[\mylocalisation]{babel}
 \RequirePackage[autostyle]{csquotes}

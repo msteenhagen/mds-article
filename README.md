@@ -44,7 +44,7 @@ Use the document class `mds-article`:
 
 # Options
 
-* `short`: suppress running headers and use a smaller font for section titles (useful for short documents)
+* `short`: suppress running headers (useful for short documents)
 
 
 # Commands
