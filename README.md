@@ -2,10 +2,9 @@
 
 by Mark Sprevak, University of Edinburgh  
 
-* Most recent version: <https://github.com/msprev/mds-article>
 * Examples of typeset PDFs: <https://sites.google.com/site/msprevak/publications>  
 
-mds-article presents an extremely minimal interface for writing your document.
+[mds-article](https://github.com/msprev/mds-article) presents an extremely minimal interface for writing your document.
 
 Configuration of author name, email address, bibliography file, fonts, etc. is through a separate 'definitions' file. The intention is that once this definition file is set and in LaTeX's path, it will be shared between all your documents and there is no need to tinker with it. Definitions can be overridden on a per document basis if needed, e.g., for a multi-authored article, using the commands below.
 
@@ -20,7 +19,7 @@ mds-article can be configured via the definition file to use any LaTeX-accessibl
 
 # Installation
 
-1. Place `mds-article.cls` and `mds-article.def` in your LaTeX path.
+1. Place `mds-article.cls` and your own `mds-article.def` in your LaTeX path.
 
 2. Run `sudo texhash`
 
